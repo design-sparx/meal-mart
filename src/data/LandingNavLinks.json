@@ -1,0 +1,38 @@
+{
+  "userLinks": [
+    {
+      "link": "#",
+      "label": "wishlist"
+    },
+    {
+      "link": "#",
+      "label": "my profile"
+    },
+    {
+      "link": "#",
+      "label": "cart"
+    }
+  ],
+  "mainLinks": [
+    {
+      "link": "#",
+      "label": "home"
+    },
+    {
+      "link": "#",
+      "label": "listing"
+    },
+    {
+      "link": "#",
+      "label": "order"
+    },
+    {
+      "link": "#",
+      "label": "help & faq"
+    },
+    {
+      "link": "#",
+      "label": "contact"
+    }
+  ]
+}
