@@ -1,4 +1,4 @@
-import {Accordion, Box, createStyles, Title} from '@mantine/core';
+import {Accordion, Box, createStyles, Text, Title} from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -29,9 +29,8 @@ export default function Faqs() {
   const {classes} = useStyles();
   return (
     <Box className={classes.wrapper}>
-      <Title align="center" className={classes.title}>
-        Frequently Asked Questions
-      </Title>
+      <Title align="center" className={classes.title}>Frequently Asked Questions</Title>
+      <Text>Here you&apos;ll be able find answers your questions</Text>
 
       <Accordion variant="separated">
         <Accordion.Item className={classes.item} value="reset-password">

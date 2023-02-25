@@ -73,7 +73,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function InstructionsCreate() {
+export  default function RestaurantFeatures() {
   const {classes} = useStyles();
 
   const features = mockdata.map((_, idx) => (
@@ -107,5 +107,3 @@ function InstructionsCreate() {
     </Box>
   );
 }
-
-export default InstructionsCreate;

@@ -18,7 +18,7 @@ import {
   TextInput,
   Title
 } from "@mantine/core";
-import InstructionsCreate from "@/components/InstructionsCreate";
+import RestaurantFeatures from "@/components/RestaurantFeatures";
 import Testimonials from "@/components/Testimonials";
 import Faqs from "@/components/Faqs";
 
@@ -86,7 +86,11 @@ export default function Create() {
                 <Stack>
                   <TextInput placeholder="Business name" label="business name" withAsterisk/>
                   <Select label="Business address" placeholder="business address" data={[{value: '', label: '---'},]}/>
-                  <SimpleGrid cols={2}>
+                  <SimpleGrid cols={2} spacing="lg" breakpoints={[
+                    {maxWidth: 'md', cols: 2, spacing: 'md'},
+                    {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                    {maxWidth: 'xs', cols: 1, spacing: 'sm'},
+                  ]}>
                     <TextInput placeholder="First name" label="first name" withAsterisk/>
                     <TextInput placeholder="Last name" label="last name" withAsterisk/>
                   </SimpleGrid>
@@ -120,7 +124,7 @@ export default function Create() {
       </Box>
       <Container fluid>
         <Stack>
-          <InstructionsCreate/>
+          <RestaurantFeatures/>
           <Testimonials/>
           <Box>
             <Flex justify="space-evenly" align="center">
