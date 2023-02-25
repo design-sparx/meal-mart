@@ -11,7 +11,7 @@ import LandingLinksFooter from "@/data/LandingFooterLinks.json";
  */
 interface IProps {
   children: ReactNode
-  containNav: boolean
+  containNav?: boolean
 }
 
 function Wrapper({children, containNav}: IProps) {

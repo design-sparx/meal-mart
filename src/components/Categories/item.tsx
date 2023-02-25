@@ -56,14 +56,15 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 interface IProps {
-  link: string;
-  imageUrl: string;
-  title: string;
-  price: number;
+  link: string
+  imageUrl: string
+  title: string
+  price: number
+  size: 'sm' | 'md'
 }
 
-function CategoryCard({imageUrl, title, link, price}: IProps) {
-  const {classes, theme} = useStyles();
+function CategoryCard({imageUrl, title, link, price, size}: IProps) {
+  const {classes} = useStyles();
 
   return (
     <Card
@@ -74,6 +75,7 @@ function CategoryCard({imageUrl, title, link, price}: IProps) {
       component={Link}
       href={link}
       target="_blank"
+      sx={{height: size === "md" ? 280 : 150}}
     >
       <div className={classes.image} style={{backgroundImage: `url(${imageUrl})`}}/>
       <div className={classes.overlay}/>
@@ -84,9 +86,11 @@ function CategoryCard({imageUrl, title, link, price}: IProps) {
             {title}
           </Text>
 
-          <Text size="sm" className={classes.price}>
-            Average price - ${price}
-          </Text>
+          {size === 'md' &&
+						<Text size="sm" className={classes.price}>
+							Average price - ${price}
+						</Text>
+          }
         </div>
       </div>
     </Card>

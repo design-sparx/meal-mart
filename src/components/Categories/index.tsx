@@ -46,6 +46,7 @@ function Categories() {
           loop
           align="start"
           slidesToScroll={3}
+          controlSize={32}
           breakpoints={[
             {maxWidth: 'md', slideSize: '50%'},
             {maxWidth: 'sm', slideSize: '100%', slideGap: 0},
@@ -61,7 +62,7 @@ function Categories() {
         >
           {CatagoriesData.data.map((_, idx) =>
             <Carousel.Slide key={`carousel-category-card-${idx}`}>
-              <CategoryCard key={`category-card-${idx}`} title={_.title} price={_.price} imageUrl={_.imageUrl} link=""/>
+              <CategoryCard key={`category-card-${idx}`} title={_.title} price={_.price} imageUrl={_.imageUrl} link="" size="sm"/>
             </Carousel.Slide>
           )}
         </Carousel>

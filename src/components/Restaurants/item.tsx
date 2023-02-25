@@ -15,7 +15,7 @@ interface IProps {
 
 function RestaurantCard({avgPrice, ratings, type, imageUrl, link, title, location}: IProps) {
   return (
-    <Paper component={Link} href={'/restaurants'}>
+    <Paper component={Link} href={`/${link}`}>
       <Group>
         <Image src={imageUrl[0]} alt={`photo of ${title}`} height={150} width={200}/>
         <Stack>

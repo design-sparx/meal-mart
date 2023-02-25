@@ -39,7 +39,8 @@ function Restaurants() {
         <Group>
           <div>
             <Title className={classes.title} align="center">Top Rated Restaurants</Title>
-            <Text className={classes.description} align="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <Text className={classes.description} align="center">Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit, sed do eiusmod tempor incididunt ut labore et
               dolore magna aliqua.</Text>
           </div>
           <Button rightIcon={<MdArrowRight/>}>view all</Button>
@@ -53,8 +54,14 @@ function Restaurants() {
             {maxWidth: 600, cols: 1, spacing: 'sm'},
           ]}>
           {RestaurantsData.data.map((_, idx) =>
-            <RestaurantCard key={idx} imageUrl={_.imageUrl} link="/" type={_.type} avgPrice={10.12} ratings={_.ratings}
-                            title={_.title} location={_.location}/>
+            <RestaurantCard
+              key={idx}
+              imageUrl={_.imageUrl}
+              link="restaurant"
+              type={_.type}
+              avgPrice={10.12}
+              ratings={_.ratings}
+              title={_.title} location={_.location}/>
           )}
         </SimpleGrid>
       </Stack>

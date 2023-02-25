@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import Image from "next/image";
-import LogoImg from "@/assets/logo/logo-color.png"
+import LogoImg from "@/assets/logo/logo-no-background.png"
 
 const HEADER_HEIGHT = 'auto';
 
@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    color: theme.white
+    color: theme.black
   },
 
   links: {
@@ -44,6 +44,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    color: theme.black,
 
     [theme.fn.smallerThan('sm')]: {
       display: 'none',
@@ -55,32 +56,33 @@ const useStyles = createStyles((theme) => ({
   },
 
   mainLink: {
-    textTransform: 'uppercase',
-    color: theme.white,
+    textTransform: 'capitalize',
+    color: theme.black,
     padding: `8px ${theme.spacing.sm}px`,
     fontWeight: 600,
     borderBottom: '2px solid transparent',
     transition: 'border-color 100ms ease, color 100ms ease',
 
     '&:hover': {
-      color: theme.white,
+      color: theme.primaryColor,
       textDecoration: 'none',
     },
   },
 
   secondaryLink: {
-    color: theme.white,
-    textTransform: 'uppercase',
+    color: theme.black,
+    fontWeight: 600,
+    textTransform: 'capitalize',
     transition: 'color 100ms ease',
 
     '&:hover': {
-      color: theme.white,
+      color: theme.primaryColor,
       textDecoration: 'none',
     },
   },
 
   mainLinkActive: {
-    color: theme.white,
+    color: theme.black,
     borderBottomColor: theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 5 : 6],
   },
 
@@ -109,7 +111,7 @@ interface DoubleHeaderProps {
 
 function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
   const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
-  const {classes, cx} = useStyles();
+  const {classes, cx, theme} = useStyles();
   const [active, setActive] = useState(0);
 
   const mainItems = mainLinks.map((item, index) => (

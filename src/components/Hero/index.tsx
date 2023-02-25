@@ -86,7 +86,6 @@ const useStyles = createStyles((theme) => ({
 
 function Hero() {
   const {classes} = useStyles();
-  const theme = useMantineTheme();
 
   return (
     <div className={classes.hero}>
