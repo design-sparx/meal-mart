@@ -3,6 +3,7 @@ import type {AppProps} from 'next/app'
 import Head from 'next/head'
 import {MantineProvider} from "@mantine/core";
 import {mealMartTheme} from "@/theme";
+import { RouterTransition } from '@/components/RouterTransition';
 
 export default function App(props: AppProps) {
   const {Component, pageProps} = props;
@@ -21,6 +22,7 @@ export default function App(props: AppProps) {
         withNormalizeCSS
         theme={mealMartTheme}
       >
+        <RouterTransition />
         <Component {...pageProps} />
       </MantineProvider>
     </>

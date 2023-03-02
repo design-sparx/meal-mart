@@ -1,7 +1,9 @@
-import {ActionIcon, Container, createStyles, Flex, Group, Text, Title} from '@mantine/core';
+import {ActionIcon, Container, createStyles, Flex, Group, Text, ThemeIcon, Title} from '@mantine/core';
 import LogoImg from "@/assets/logo/logo-color.png";
 import Image from "next/image";
-import {FaInstagram, FaTwitter, FaYoutube} from "react-icons/fa";
+import {FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaTwitter} from "react-icons/fa";
+import {MdLocationPin, MdMailOutline, MdOutlinePhone} from "react-icons/md";
+import LanguagePicker from "@/components/LanguagePicker";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -133,29 +135,38 @@ function Footer({data}: FooterLinksProps) {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Flex align="center" gap="sm" className={classes.title}>
+          <Flex align="center" gap="sm" mb="md" className={classes.title}>
             <Image src={LogoImg} alt="Meal mart logo" height={48}/>
             <Title order={4}>Food delivery</Title>
           </Flex>
-          <Text size="xs" color="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
-          </Text>
+          <LanguagePicker/>
         </div>
-        <div className={classes.groups}>{groups}</div>
+        <div className={classes.groups}>
+          {groups}
+        </div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          © {new Date().getFullYear()}{' '}
+          <a href="https://github.com/kelvins-lab" target="_blank" rel="noreferrer">kelvins-lab</a>.
+          Designed with ❤ by <a href="https://lnk.bio/kelvink96" target="_blank" rel="noreferrer">Kelvin</a>. All rights
+          reserved
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg">
+          <ActionIcon size="lg" component="a" href="https://twitter.com/kelvink_96" target="_blank">
             <FaTwitter size={18}/>
           </ActionIcon>
-          <ActionIcon size="lg">
-            <FaYoutube size={18}/>
+          <ActionIcon size="lg" component="a" href="https://www.linkedin.com/in/kelvink96/" target="_blank">
+            <FaLinkedinIn size={18}/>
           </ActionIcon>
-          <ActionIcon size="lg">
+          <ActionIcon size="lg" component="a" href="https://github.com/kelvink96" target="_blank">
+            <FaGithub size={18}/>
+          </ActionIcon>
+          <ActionIcon size="lg" component="a" href="https://www.facebook.com/kelvinkk96" target="_blank">
+            <FaFacebook size={18}/>
+          </ActionIcon>
+          <ActionIcon size="lg" component="a" href="https://www.instagram.com/kelvink_96/" target="_blank">
             <FaInstagram size={18}/>
           </ActionIcon>
         </Group>

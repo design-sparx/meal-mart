@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
   }
 }))
 
-function Feed(): JSX.Element {
+function Index(): JSX.Element {
   const {classes} = useStyles();
   const [value, setValue] = useState('your-picks');
 
@@ -201,4 +201,4 @@ function Feed(): JSX.Element {
   );
 }
 
-export default Feed;
+export default Index;

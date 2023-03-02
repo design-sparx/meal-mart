@@ -1,15 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Container,
-  createStyles,
-  Group,
-  Overlay,
-  Text,
-  TextInput,
-  Title,
-  useMantineTheme
-} from '@mantine/core';
+import {Anchor, Button, Container, createStyles, Group, Overlay, Text, TextInput, Title} from '@mantine/core';
 import {MdOutlineSearch} from "react-icons/md";
 import React from "react";
 

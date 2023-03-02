@@ -1,37 +1,55 @@
 {
   "userLinks": [
     {
+      "link": "help",
+      "label": "help"
+    },
+    {
       "link": "#",
       "label": "wishlist"
     },
     {
       "link": "#",
-      "label": "my profile"
+      "label": "cart"
     },
     {
       "link": "#",
-      "label": "cart"
+      "label": "profile"
     }
   ],
   "mainLinks": [
     {
-      "link": "#",
+      "link": "/",
       "label": "home"
     },
     {
-      "link": "#",
-      "label": "listing"
+      "link": "feed",
+      "label": "feed"
     },
     {
-      "link": "#",
+      "link": "restaurants",
+      "label": "restaurants",
+      "links": [
+        {
+          "link": "restaurants/create",
+          "label": "Submit a restaurant"
+        }
+      ]
+    },
+    {
+      "link": "orders/submit",
       "label": "order"
     },
     {
-      "link": "#",
-      "label": "help & faq"
+      "link": "rider/create",
+      "label": "become a rider"
     },
     {
-      "link": "#",
+      "link": "review/create",
+      "label": "write review"
+    },
+    {
+      "link": "contact",
       "label": "contact"
     }
   ]

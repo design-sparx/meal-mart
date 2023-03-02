@@ -1,31 +1,35 @@
-import {useState} from 'react';
 import {
-  Anchor,
   Box,
   Burger,
+  Button,
+  Center,
   Container,
   createStyles,
   Drawer,
   Group,
-  Header,
+  Header, MantineTheme,
+  Menu,
+  rem,
   ScrollArea,
   Stack,
-  Title
+  Text,
 } from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import Image from "next/image";
-import LogoImg from "@/assets/logo/logo-no-background.png"
+import LogoImg from "@/assets/logo/logo-no-background.png";
+import Link from "next/link";
+import {MdKeyboardArrowDown} from "react-icons/md";
 
-const HEADER_HEIGHT = 'auto';
+const HEADER_HEIGHT = 60;
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles((theme: MantineTheme) => ({
   inner: {
     height: HEADER_HEIGHT,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padddingLeft: theme.spacing.xl * 4,
-    padddingRight: theme.spacing.xl * 4,
+    paddingLeft: rem(24),
+    paddingRight: rem(24),
   },
 
   burger: {
@@ -38,52 +42,30 @@ const useStyles = createStyles((theme) => ({
     color: theme.black
   },
 
-  links: {
-    paddingTop: theme.spacing.lg,
-    height: HEADER_HEIGHT,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    color: theme.black,
-
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none',
-    },
-  },
-
-  mainLinks: {
-    marginRight: -theme.spacing.sm,
-  },
-
-  mainLink: {
+  link: {
+    display: 'block',
+    lineHeight: 1,
+    padding: `${rem(8)} ${rem(12)}`,
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
     textTransform: 'capitalize',
-    color: theme.black,
-    padding: `8px ${theme.spacing.sm}px`,
-    fontWeight: 600,
-    borderBottom: '2px solid transparent',
-    transition: 'border-color 100ms ease, color 100ms ease',
+    backgroundColor: 'transparent',
 
     '&:hover': {
       color: theme.primaryColor,
-      textDecoration: 'none',
+      transition: 'all ease 200ms'
     },
   },
 
-  secondaryLink: {
-    color: theme.black,
-    fontWeight: 600,
-    textTransform: 'capitalize',
-    transition: 'color 100ms ease',
-
-    '&:hover': {
-      color: theme.primaryColor,
-      textDecoration: 'none',
-    },
+  linkActive: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
   },
 
-  mainLinkActive: {
-    color: theme.black,
-    borderBottomColor: theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 5 : 6],
+  linkLabel: {
+    marginRight: '5px',
   },
 
   hiddenMobile: {
@@ -100,8 +82,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface LinkProps {
-  label: string;
-  link: string;
+  label: string
+  link: string
+  links: { label: string, link: string }[]
 }
 
 interface DoubleHeaderProps {
@@ -111,48 +94,59 @@ interface DoubleHeaderProps {
 
 function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
   const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
-  const {classes, cx, theme} = useStyles();
-  const [active, setActive] = useState(0);
+  const {classes} = useStyles();
 
-  const mainItems = mainLinks.map((item, index) => (
-    <Anchor<'a'>
-      href={item.link}
-      key={item.label}
-      className={cx(classes.mainLink, {[classes.mainLinkActive]: index === active})}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(index);
-      }}
-    >
-      {item.label}
-    </Anchor>
-  ));
+  const mainItems = mainLinks.map((link) => {
+    const menuItems = link.links?.map((item) => (
+      <Menu.Item key={item.link}>{item.label}</Menu.Item>
+    ));
+
+    if (menuItems) {
+      return (
+        <Menu key={link.label} trigger="hover" withinPortal>
+          <Menu.Target>
+            <Button
+              component={Link}
+              href={link.link}
+              className={classes.link}
+              variant="subtle"
+            >
+              <Center>
+                <span className={classes.linkLabel}>{link.label}</span>
+                <MdKeyboardArrowDown size="0.9rem"/>
+              </Center>
+            </Button>
+          </Menu.Target>
+          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+        </Menu>
+      );
+    }
+
+    return (
+      <Button component={Link}  key={link.label} href={link.link} variant="subtle" className={classes.link}>
+        {link.label}
+      </Button>
+    );
+  });
 
   const secondaryItems = userLinks.map((item) => (
-    <Anchor<'a'>
-      href={item.link}
-      key={item.label}
-      onClick={(event) => event.preventDefault()}
-      className={classes.secondaryLink}
-    >
+    <Button component={Link} href={item.link} key={item.label} variant="subtle" className={classes.link}>
       {item.label}
-    </Anchor>
+    </Button>
   ));
 
   return (
-    <Box sx={{position: "sticky", zIndex: 2}}>
+    <Box sx={{position: "sticky", top: 0, zIndex: 2}}>
       <Header height={HEADER_HEIGHT} sx={{backgroundColor: "transparent"}}>
         <Container fluid className={classes.inner} px={16 * 3}>
           <Group className={classes.title}>
-            <Image src={LogoImg} alt="Meal mart logo" height={48}/>
-            <Title order={3}>Food delivery</Title>
+            <Image src={LogoImg} alt="Meal mart logo" height={40}/>
+            <Text component={Link} href="/">Food delivery</Text>
           </Group>
-          <div className={classes.links}>
-            <Group position="right">{secondaryItems}</Group>
-            <Group spacing={0} position="right" className={classes.mainLinks}>
-              {mainItems}
-            </Group>
-          </div>
+          <Group spacing="xs">
+            {mainItems}
+          </Group>
+          <Group spacing="xs">{secondaryItems}</Group>
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>
         </Container>
       </Header>
@@ -167,7 +161,7 @@ function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
       >
         <ScrollArea sx={{height: 'calc(100vh - 60px)'}} mx="-md">
           <Stack>{secondaryItems}</Stack>
-          <Stack spacing={0} className={classes.mainLinks}>
+          <Stack spacing={0} className={classes.link}>
             {mainItems}
           </Stack>
         </ScrollArea>
