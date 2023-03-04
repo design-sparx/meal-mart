@@ -4,6 +4,7 @@ import Head from 'next/head'
 import {MantineProvider} from "@mantine/core";
 import {mealMartTheme} from "@/theme";
 import { RouterTransition } from '@/components/RouterTransition';
+import "@/styles/globals.css";
 
 export default function App(props: AppProps) {
   const {Component, pageProps} = props;

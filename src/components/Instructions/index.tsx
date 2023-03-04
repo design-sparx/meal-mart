@@ -1,4 +1,4 @@
-import {Box, Card, createStyles, SimpleGrid, Stack, Text, Title,} from '@mantine/core';
+import {Box, Card, Container, createStyles, SimpleGrid, Stack, Text, Title,} from '@mantine/core';
 import {MdOutlineMouse} from "react-icons/md";
 import Image from "next/image";
 import FeatureImg1 from "@/assets/img/feature-icon-1.jpg";
@@ -32,8 +32,7 @@ const mockdata = [
 
 const useStyles = createStyles((theme) => ({
   title: {
-    fontSize: 34,
-    fontWeight: 900,
+    fontSize: 48,
 
     [theme.fn.smallerThan('sm')]: {
       fontSize: 24,
@@ -61,6 +60,13 @@ const useStyles = createStyles((theme) => ({
     border: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
     }`,
+    boxShadow: theme.shadows.sm,
+
+    '&:hover': {
+      transform: 'scale(1.03)',
+      transition: 'all ease 200ms',
+      boxShadow: theme.shadows.lg,
+    },
   },
 
   cardTitle: {
@@ -80,7 +86,7 @@ const useStyles = createStyles((theme) => ({
 function Instructions() {
   const {classes} = useStyles();
   const features = mockdata.map((_, idx) => (
-    <Card key={_.title} shadow="md" radius="md" className={classes.card} p="xl">
+    <Card key={_.title} radius="sm" className={classes.card} p="xl">
       <Image src={_.image} alt={''} height={200} width={200} style={{objectFit: "contain"}}/>
       <Text size="xl" weight={500} className={classes.cardTitle} mt="md">
         {++idx}. {_.title}
@@ -91,19 +97,19 @@ function Instructions() {
     </Card>
   ));
   return (
-    <Box py="xl">
+    <Container fluid my={120}>
       <Stack align="center">
         <Title order={2} className={classes.title} align="center">
           How It Works
         </Title>
-        <Text color="dimmed" className={classes.description} align="center">
+        <Text color="dimmed" className={classes.description} align="center" mb="xl">
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </Text>
       </Stack>
       <SimpleGrid cols={3} spacing="xl" breakpoints={[{maxWidth: 'md', cols: 1}]}>
         {features}
       </SimpleGrid>
-    </Box>
+    </Container>
   );
 }
 

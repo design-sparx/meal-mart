@@ -1,7 +1,28 @@
 import React from 'react';
-import {Badge, Group, Image, Paper, Stack, Text} from "@mantine/core";
+import {Badge, createStyles, Flex, Group, Image, Paper, Stack, Text, ThemeIcon} from "@mantine/core";
 import Link from "next/link";
 import {MdOutlineLocalFireDepartment, MdOutlineStar, MdOutlineStarHalf} from "react-icons/md";
+
+const useStyles = createStyles((theme, _params, getRef) => ({
+  title: {
+    ref: getRef('title'),
+  },
+
+  card: {
+    boxShadow: theme.shadows.sm,
+
+    '&:hover': {
+      transform: 'scale(1.03)',
+      transition: 'all ease 200ms',
+      boxShadow: theme.shadows.lg,
+    },
+
+    [`&:hover .${getRef('title')}`]: {
+      color: theme.primaryColor,
+      fontWeight: 600
+    },
+  }
+}))
 
 interface IProps {
   link: string
@@ -14,23 +35,28 @@ interface IProps {
 }
 
 function RestaurantCard({avgPrice, ratings, type, imageUrl, link, title, location}: IProps) {
+  const {classes} = useStyles();
+
   return (
-    <Paper component={Link} href={`/${link}`}>
-      <Group>
-        <Image src={imageUrl[0]} alt={`photo of ${title}`} height={150} width={200}/>
-        <Stack>
-          <Group>
-            <Text>{type}</Text>
-            <Text><MdOutlineStarHalf/> {ratings}</Text>
-          </Group>
-          <Text>{title}</Text>
+    <Paper component={Link} href={`/${link}`} className={classes.card}>
+      <Flex align="center">
+        <Image src={imageUrl[0]} alt={`photo of ${title}`} radius="sm" height={200} width={200}/>
+        <Stack mx="md" sx={{width: '100%'}}>
+          <Flex justify="space-between" align="center">
+            <Text size="sm" transform="capitalize">{type}</Text>
+            <Group position="right" spacing="xs">
+              <ThemeIcon variant="light"><MdOutlineStar/></ThemeIcon>
+              <Text size="sm">{ratings}</Text>
+            </Group>
+          </Flex>
+          <Text size="lg" weight={500} className={classes.title}>{title}</Text>
           <Text>{location}</Text>
-          <Group>
-            <Badge><MdOutlineLocalFireDepartment/> -30%</Badge>
-            <Text>Average price ${avgPrice}</Text>
-          </Group>
+          <Flex justify="space-between" align="center">
+            <Badge size="lg" radius="sm" variant="light"><MdOutlineLocalFireDepartment/> -30%</Badge>
+            <Text size="sm">Average price ${avgPrice}</Text>
+          </Flex>
         </Stack>
-      </Group>
+      </Flex>
     </Paper>
   );
 }

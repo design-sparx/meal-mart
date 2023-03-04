@@ -7,29 +7,38 @@ import {
   createStyles,
   Drawer,
   Group,
-  Header, MantineTheme,
+  Header,
+  MantineTheme,
   Menu,
-  rem,
   ScrollArea,
   Stack,
   Text,
 } from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import Image from "next/image";
-import LogoImg from "@/assets/logo/logo-no-background.png";
+import LogoImgColor from "@/assets/logo/logo-color.png";
+import LogoImgWhite from "@/assets/logo/logo-white.png";
 import Link from "next/link";
 import {MdKeyboardArrowDown} from "react-icons/md";
+import {useScrollPosition} from '@/hooks/useScrollPosition';
 
 const HEADER_HEIGHT = 60;
 
-const useStyles = createStyles((theme: MantineTheme) => ({
+const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => ({
+  wrapper: {
+    backgroundColor: scrollPosition > 5 ? 'white' : 'transparent',
+    borderBottom: 'none',
+    transition: 'all ease 150ms',
+    boxShadow: scrollPosition > 5 ? theme.shadows.md : 'none',
+  },
+
   inner: {
     height: HEADER_HEIGHT,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: rem(24),
-    paddingRight: rem(24),
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
   },
 
   burger: {
@@ -38,24 +47,50 @@ const useStyles = createStyles((theme: MantineTheme) => ({
     },
   },
 
+  navbarBrand: {
+    display: 'flex',
+    alignItems: 'center',
+    textDecoration: 'none'
+  },
+
   title: {
-    color: theme.black
+    color: scrollPosition > 5 ? theme.black : theme.white,
+    fontWeight: 500,
+    fontSize: theme.fontSizes.lg
   },
 
   link: {
     display: 'block',
     lineHeight: 1,
-    padding: `${rem(8)} ${rem(12)}`,
     borderRadius: theme.radius.sm,
     textDecoration: 'none',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    color: scrollPosition > 5 ? theme.black : theme.white,
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
     textTransform: 'capitalize',
     backgroundColor: 'transparent',
 
     '&:hover': {
-      color: theme.primaryColor,
+      backgroundColor: scrollPosition < 5 ? theme.colors.gray[8] : theme.white,
+      color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
+      transition: 'all ease 200ms'
+    },
+  },
+
+  subLink: {
+    display: 'block',
+    lineHeight: 1,
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
+    color: theme.black,
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
+    textTransform: 'capitalize',
+    backgroundColor: 'transparent',
+
+    '&:hover': {
+      backgroundColor: theme.white,
+      color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
       transition: 'all ease 200ms'
     },
   },
@@ -84,21 +119,23 @@ const useStyles = createStyles((theme: MantineTheme) => ({
 interface LinkProps {
   label: string
   link: string
-  links: { label: string, link: string }[]
+  links?: { label: string, link: string }[]
 }
 
-interface DoubleHeaderProps {
-  mainLinks: LinkProps[];
-  userLinks: LinkProps[];
+interface IProps {
+  mainLinks: LinkProps[]
+  userLinks: LinkProps[]
+  containNav: boolean
 }
 
-function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
+function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
   const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
-  const {classes} = useStyles();
+  const scrollPosition: number = useScrollPosition()
+  const {classes} = useStyles({scrollPosition: containNav ? scrollPosition : 6});
 
   const mainItems = mainLinks.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
+      <Menu.Item key={item.link} className={classes.subLink}>{item.label}</Menu.Item>
     ));
 
     if (menuItems) {
@@ -109,7 +146,6 @@ function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
               component={Link}
               href={link.link}
               className={classes.link}
-              variant="subtle"
             >
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
@@ -123,30 +159,29 @@ function LandingHeader({mainLinks, userLinks}: DoubleHeaderProps) {
     }
 
     return (
-      <Button component={Link}  key={link.label} href={link.link} variant="subtle" className={classes.link}>
+      <Button component={Link} key={link.label} href={link.link} className={classes.link}>
         {link.label}
       </Button>
     );
   });
 
   const secondaryItems = userLinks.map((item) => (
-    <Button component={Link} href={item.link} key={item.label} variant="subtle" className={classes.link}>
+    <Button component={Link} href={item.link} key={item.label} className={classes.link}>
       {item.label}
     </Button>
   ));
 
   return (
     <Box sx={{position: "sticky", top: 0, zIndex: 2}}>
-      <Header height={HEADER_HEIGHT} sx={{backgroundColor: "transparent"}}>
+      <Header height={HEADER_HEIGHT} className={classes.wrapper}>
         <Container fluid className={classes.inner} px={16 * 3}>
-          <Group className={classes.title}>
-            <Image src={LogoImg} alt="Meal mart logo" height={40}/>
-            <Text component={Link} href="/">Food delivery</Text>
-          </Group>
-          <Group spacing="xs">
-            {mainItems}
-          </Group>
-          <Group spacing="xs">{secondaryItems}</Group>
+          <Box className={classes.navbarBrand} component={Link} href="/">
+            <Image src={containNav && scrollPosition > 5 ? LogoImgColor : LogoImgWhite} alt="Meal mart logo"
+                   height={48}/>
+            <Text className={classes.title} ml="sm">Food delivery</Text>
+          </Box>
+          <Group spacing={1}>{mainItems}</Group>
+          <Group spacing={2}>{secondaryItems}</Group>
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>
         </Container>
       </Header>

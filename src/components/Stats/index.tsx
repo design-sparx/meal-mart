@@ -1,70 +1,51 @@
-import {Box, createStyles, Flex, Paper, SimpleGrid, Text, Title} from '@mantine/core';
+import {Box, Container, createStyles, Flex, Grid, Paper, Text, ThemeIcon, Title} from '@mantine/core';
 import StatsData from '@/data/Stats.json';
+import {MdOutlineSentimentSatisfied} from "react-icons/md";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    display: 'flex',
     padding: theme.spacing.xl * 1.5,
     borderRadius: theme.radius.md,
-
-    [theme.fn.smallerThan('sm')]: {
-      flexDirection: 'column',
-    },
   },
 
   title: {
     textTransform: 'capitalize',
-    fontSize: theme.fontSizes.md,
-    width: '50%',
-    textAlign: 'end'
+    fontSize: theme.fontSizes.lg,
   },
 
   count: {
     fontSize: 36,
     fontWeight: 900,
-    marginBottom: theme.spacing.md,
-    color: theme.primaryColor,
     width: '50%'
-  },
-
-  stat: {
-    flex: 1,
-
-    '& + &': {
-      paddingLeft: theme.spacing.xl,
-      marginLeft: theme.spacing.xl,
-
-      [theme.fn.smallerThan('sm')]: {
-        paddingLeft: 0,
-        marginLeft: 0,
-        borderLeft: 0,
-        paddingTop: theme.spacing.xl,
-        marginTop: theme.spacing.xl,
-      },
-    },
   },
 }));
 
 function Stats() {
   const {classes} = useStyles();
   const stats = StatsData.data.map((stat) => (
-    <Paper key={stat.title} className={classes.stat} withBorder p="lg">
-      <Flex align="center" justify="space-between">
-        <Text className={classes.count}>{stat.stats}</Text>
-        <Text className={classes.title}>{stat.title}</Text>
-      </Flex>
-    </Paper>
+    <Grid.Col lg={4} key={stat.title}>
+      <Paper withBorder p="md">
+        <Flex justify="space-between" sx={{width: '100%'}}>
+          <div>
+            <Text className={classes.count}>{stat.stats}</Text>
+            <Text className={classes.title}>{stat.title}</Text>
+          </div>
+          <ThemeIcon size={64} variant="light">
+            <MdOutlineSentimentSatisfied size={36}/>
+          </ThemeIcon>
+        </Flex>
+      </Paper>
+    </Grid.Col>
   ));
-  return <Box>
-    <Flex align="center" justify="space-between">
-      <Title>Service shows good taste.</Title>
+
+  return <Container fluid my={120}>
+    <Box>
+      <Title align="center" size={48}>Service shows good taste.</Title>
       <div className={classes.root}>
-        <SimpleGrid cols={3} spacing="xl" breakpoints={[{maxWidth: 'md', cols: 1}]}>
-          {stats}
-        </SimpleGrid>
+        <Grid>{stats}</Grid>
       </div>
-    </Flex>
-  </Box>;
+    </Box>
+  </Container>;
 }
 
 export default Stats;
