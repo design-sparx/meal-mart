@@ -45,6 +45,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
 
     title: {
+      textTransform: 'capitalize',
       color: theme.white,
       marginBottom: 5,
     },
@@ -85,10 +86,11 @@ function CategoryCard({imageUrl, title, link, price, size}: IProps) {
           <Text size="lg" className={classes.title} weight={500}>
             {title}
           </Text>
-
-          <Text size="sm" className={classes.price}>
-            Average price - ${price}
-          </Text>
+          {size === "md" &&
+						<Text size="sm" className={classes.price}>
+							Average price - ${price}
+						</Text>
+          }
         </div>
       </div>
     </Card>

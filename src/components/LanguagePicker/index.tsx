@@ -42,7 +42,7 @@ const useStyles = createStyles((theme, {opened}: { opened: boolean }) => ({
         ? theme.colors.dark[opened ? 5 : 6]
         : opened
           ? theme.colors.gray[0]
-          : theme.white,
+          : theme.colors.gray[0],
 
     '&:hover': {
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[0],

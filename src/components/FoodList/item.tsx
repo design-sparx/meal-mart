@@ -20,7 +20,7 @@ import {
   MdStar
 } from "react-icons/md";
 
-const useStyles = createStyles((theme: MantineTheme) => ({
+const useStyles = createStyles((theme: MantineTheme, _params, getRef) => ({
   card: {
     position: 'relative',
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
@@ -33,6 +33,10 @@ const useStyles = createStyles((theme: MantineTheme) => ({
       transition: `all ease-in-out 150ms`,
       cursor: 'pointer'
     },
+
+    [`&:hover .${getRef('title')}`]: {
+      fontWeight: 800
+    },
   },
   rating: {
     position: 'absolute',
@@ -41,6 +45,7 @@ const useStyles = createStyles((theme: MantineTheme) => ({
     pointerEvents: 'none',
   },
   title: {
+    ref: getRef('title'),
     display: 'block',
     fontSize: theme.fontSizes.lg
   },
@@ -88,11 +93,11 @@ function FoodListItem({image, category, title, link, ratings}: IProps) {
           <Center>
             <Flex gap="sm">
               <Flex gap="xs">
-                <ThemeIcon variant="light"><MdOutlineDeliveryDining/></ThemeIcon>
+                <ThemeIcon variant="outline"><MdOutlineDeliveryDining/></ThemeIcon>
                 <Text size="sm">Delivery</Text>
               </Flex>
               <Flex gap="xs">
-                <ThemeIcon variant="light"><MdOutlineTakeoutDining/></ThemeIcon>
+                <ThemeIcon variant="outline"><MdOutlineTakeoutDining/></ThemeIcon>
                 <Text size="sm">Takeout</Text>
               </Flex>
             </Flex>

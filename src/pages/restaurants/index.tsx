@@ -13,19 +13,24 @@ import {
   Text,
   Title
 } from "@mantine/core";
-import React from "react";
-import {MdOutlineFavorite, MdOutlinePhotoSizeSelectActual, MdOutlineStar} from "react-icons/md";
+import React, {useRef} from "react";
+import {MdOutlineFavorite, MdOutlineForum, MdOutlinePhotoSizeSelectActual, MdOutlineStar} from "react-icons/md";
 import RestaurantMenu from "@/components/RestaurantMenu";
 import OrderSummary from "@/components/OrderSummary";
 import RestaurantReviews from "@/components/RestaurantReviews";
+import {scrollToView} from "@/utils/scrollToView";
 
 const useStyles = createStyles((theme) => ({
+  wrapper: {
+    overflowX: 'hidden'
+  },
   hero: {
     position: 'relative',
     backgroundImage:
       'url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    overflow: 'hidden'
   },
   heroContainer: {
     height: 500,
@@ -36,6 +41,7 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.xl,
     zIndex: 1,
     position: 'relative',
+    overflow: 'hidden',
 
     [theme.fn.smallerThan('sm')]: {
       height: 500,
@@ -47,11 +53,35 @@ const useStyles = createStyles((theme) => ({
   },
   control: {
     textTransform: 'capitalize'
+  },
+  stickyTab: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    position: "sticky",
+    top: 60,
+    padding: theme.spacing.md,
+    borderBottom: `1px solid ${theme.colors.gray[3]}`,
+    borderTop: `1px solid ${theme.colors.gray[3]}`,
+    zIndex: 1000,
+  },
+  ordersWrapper: {
+    position: "sticky",
+    top: 130,
+    paddingTop: theme.spacing.lg
+  },
+  menuWrapper: {
+    backgroundColor: theme.colors.gray[0],
+    paddingLeft: theme.spacing.xl,
+    paddingRight: theme.spacing.xl,
   }
 }))
 
 export default function Home() {
   const {classes} = useStyles();
+  const starterRef = useRef(null);
+  const mainRef = useRef(null);
+  const dessertRef = useRef(null);
+  const drinksRef = useRef(null);
+  const reviewsRef = useRef(null);
 
   return (
     <Wrapper containNav={false}>
@@ -74,41 +104,57 @@ export default function Home() {
                 <Text className={classes.heroText}>-</Text>
                 <Text className={classes.heroText}>8 spo zas St, 499</Text>
                 <Text className={classes.heroText}>-</Text>
-                <Button className={classes.control}>Get directions</Button>
+                <Button className={classes.control} variant="white">Get directions</Button>
               </Flex>
             </Stack>
-            <Flex gap="md">
-              <Button leftIcon={<MdOutlinePhotoSizeSelectActual/>} className={classes.control}>view photos</Button>
-              <Button leftIcon={<MdOutlineFavorite/>} className={classes.control}>view photos</Button>
+            <Flex gap="xs">
+              <Button leftIcon={<MdOutlinePhotoSizeSelectActual/>} className={classes.control} variant="white">view
+                photos</Button>
+              <Button leftIcon={<MdOutlineFavorite/>} className={classes.control} variant="white">wishlist</Button>
             </Flex>
           </Flex>
         </Container>
       </Box>
-      <Container fluid>
-        <Flex gap="md" sx={{position: "sticky", top: 0}}>
-          <Button>Starters</Button>
-          <Button>Main Course</Button>
-          <Button>Dessert</Button>
-          <Button>Drinks</Button>
+      <Box component="div">
+        <Flex gap="sm" className={classes.stickyTab}>
+          <Button variant="subtle" onClick={() => scrollToView(starterRef)}>Starters</Button>
+          <Button variant="subtle" onClick={() => scrollToView(mainRef)}>Main Course</Button>
+          <Button variant="subtle" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
+          <Button variant="subtle" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
           <Divider orientation="vertical"/>
-          <Button>Reviews</Button>
+          <Button variant="light" leftIcon={<MdOutlineForum size={18}/>}
+                  onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
         </Flex>
-        <Grid>
+      </Box>
+      <Box sx={{overflow: 'hidden'}}>
+        <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl">
           <Grid.Col md={12} lg={8}>
             <Box>
-              <RestaurantMenu title="Starters"/>
-              <RestaurantMenu title="Main courses"/>
-              <RestaurantMenu title="Desserts"/>
-              <RestaurantMenu title="Drinks"/>
+              <div ref={starterRef}>
+                <RestaurantMenu title="Starters"/>
+              </div>
+              <div ref={mainRef}>
+                <RestaurantMenu title="Main courses"/>
+              </div>
+              <div ref={dessertRef}>
+                <RestaurantMenu title="Desserts"/>
+              </div>
+              <div ref={drinksRef}>
+                <RestaurantMenu title="Drinks"/>
+              </div>
             </Box>
           </Grid.Col>
           <Grid.Col md={12} lg={4}>
-            <OrderSummary/>
+            <div className={classes.ordersWrapper}>
+              <OrderSummary/>
+            </div>
           </Grid.Col>
         </Grid>
-        <Box>
+      </Box>
+      <Container fluid mt={60} px={30}>
+        <div ref={reviewsRef}>
           <RestaurantReviews/>
-        </Box>
+        </div>
       </Container>
     </Wrapper>
   )

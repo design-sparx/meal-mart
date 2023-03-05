@@ -6,10 +6,10 @@ html, body {
     font-family: 'Inter', sans-serif !important;
 }
 
-h1, h2, h3, h4, h5, h6, p, span {
+h1, h2, h3, h4, h5, h6, p, span, ::placeholder {
     font-family: 'Inter', sans-serif !important;
 }
 
-.mantine-Text-root, .mantine-Button-label {
+.mantine-Text-root, .mantine-Button-label, .mantine-Radio-label, .mantine-Accordion-control, .mantine-Chip-label {
     font-family: 'Inter', sans-serif !important;
 }

@@ -33,6 +33,7 @@ function Wrapper({children, containNav}: IProps) {
               leftIcon={<MdKeyboardArrowUp size={16} />}
               style={transitionStyles}
               onClick={() => scrollTo({ y: 0 })}
+              color='dark'
             >
               Scroll to top
             </Button>

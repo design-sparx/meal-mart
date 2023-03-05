@@ -18,8 +18,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     },
 
     [`&:hover .${getRef('title')}`]: {
-      color: theme.primaryColor,
-      fontWeight: 600
+      fontWeight: 800
     },
   }
 }))

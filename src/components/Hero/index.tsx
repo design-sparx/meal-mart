@@ -91,7 +91,7 @@ function Hero() {
           icon={<MdOutlineSearch size={24}/>}
           size="xl"
           rightSection={
-            <Button size="md">Search</Button>
+            <Button size="md" variant="white">Search</Button>
           }
           placeholder="what are you looking for..."
           rightSectionWidth={110}
