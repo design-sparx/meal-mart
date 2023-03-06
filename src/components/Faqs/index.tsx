@@ -30,7 +30,7 @@ export default function Faqs() {
   return (
     <Box className={classes.wrapper}>
       <Title align="center" className={classes.title}>Frequently Asked Questions</Title>
-      <Text>Here you&apos;ll be able find answers your questions</Text>
+      <Text size="lg" mb="lg" align="center">Here you&apos;ll be able find answers your questions</Text>
 
       <Accordion variant="separated">
         <Accordion.Item className={classes.item} value="reset-password">

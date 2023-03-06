@@ -57,6 +57,13 @@ const useStyles = createStyles((theme) => ({
     border: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
     }`,
+    boxShadow: theme.shadows.sm,
+
+    '&:hover': {
+      transform: 'scale(1.03)',
+      transition: 'all ease 200ms',
+      boxShadow: theme.shadows.lg,
+    },
   },
 
   cardTitle: {
@@ -97,7 +104,7 @@ export  default function RestaurantFeatures() {
         <Title align="center">
           Why Signup to Meal Mart
         </Title>
-        <Text color="dimmed" className={classes.description} align="center">
+        <Text color="dimmed" className={classes.description} align="center" mb="lg">
           Et sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque.
         </Text>
       </Stack>

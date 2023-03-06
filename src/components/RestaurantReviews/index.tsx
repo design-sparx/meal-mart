@@ -26,7 +26,7 @@ function RestaurantReviews() {
       <Flex mb="xl" gap="lg">
         <Paper withBorder p="lg">
           <Stack align="center" spacing="sm">
-            <Text size="xl" weight={600}>8.2</Text>
+            <Text size={32} weight={600}>8.2</Text>
             <Rating defaultValue={4.2}/>
             <Text size="sm">Based on 231 reviews</Text>
           </Stack>

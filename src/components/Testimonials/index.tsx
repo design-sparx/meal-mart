@@ -25,10 +25,8 @@ export default function Testimonials() {
               <Stack>
                 <Title>Unlock new growth</Title>
                 <Text>A pellentesque sit amet porttitor. Viverra maecenas accumsan lacus vel facilisis volutpat est.
-                  Tellus
-                  pellentesque eu tincidunt tortor. Ornare quam viverra orci sagittis eu volutpat. Nunc non blandit
-                  massa
-                  enim. Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing.
+                  Tellus pellentesque eu tincidunt tortor. Ornare quam viverra orci sagittis eu volutpat. Nunc non
+                  blandit massa enim. Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing.
                 </Text>
               </Stack>
               <Image

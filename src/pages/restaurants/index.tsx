@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
     overflow: 'hidden'
   },
   heroContainer: {
-    height: 500,
+    height: 550,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -84,7 +84,7 @@ export default function Home() {
   const reviewsRef = useRef(null);
 
   return (
-    <Wrapper containNav={false}>
+    <Wrapper containNav={true}>
       <Box className={classes.hero}>
         <Overlay
           gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"

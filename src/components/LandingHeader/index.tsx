@@ -71,8 +71,8 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
     backgroundColor: 'transparent',
 
     '&:hover': {
-      backgroundColor: scrollPosition < 5 ? theme.colors.gray[8] : theme.white,
-      color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
+      backgroundColor: scrollPosition < 5 ? theme.colors.gray[7] : theme.colors.gray[1],
+      // color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
       transition: 'all ease 200ms'
     },
   },
@@ -89,8 +89,8 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
     backgroundColor: 'transparent',
 
     '&:hover': {
-      backgroundColor: theme.white,
-      color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
+      backgroundColor: scrollPosition < 5 ? theme.colors.gray[7] : theme.colors.gray[1],
+      // color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
       transition: 'all ease 200ms'
     },
   },
@@ -135,7 +135,7 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
 
   const mainItems = mainLinks.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link} className={classes.subLink}>{item.label}</Menu.Item>
+      <Menu.Item key={item.link} component={Link} href={`/${item.link}`} className={classes.subLink}>{item.label}</Menu.Item>
     ));
 
     if (menuItems) {
@@ -144,7 +144,7 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
           <Menu.Target>
             <Button
               component={Link}
-              href={link.link}
+              href={`/${link.link}`}
               className={classes.link}
             >
               <Center>
@@ -159,7 +159,7 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
     }
 
     return (
-      <Button component={Link} key={link.label} href={link.link} className={classes.link}>
+      <Button component={Link} key={link.label} href={`/${link.link}`} className={classes.link}>
         {link.label}
       </Button>
     );
