@@ -1,7 +1,8 @@
 import {
   Alert,
-  Box,
   Button,
+  Container,
+  createStyles,
   FileInput,
   Group,
   List,
@@ -20,6 +21,13 @@ import {
 import React, {useState} from 'react';
 import {MdCheckCircle, MdHelpOutline, MdOutlineUploadFile} from 'react-icons/md';
 
+const useStyles = createStyles((theme) => ({
+  form: {
+    background: theme.colors.gray[0],
+    boxShadow: theme.shadows.sm
+  }
+}))
+
 const data = [
   {value: 'ke', label: 'KE'},
   {value: 'ug', label: 'UG'},
@@ -28,20 +36,20 @@ const data = [
 ];
 
 export default function RiderForm() {
-  const [active, setActive] = useState(1);
+  const {classes} = useStyles();
+  const [active, setActive] = useState(0);
   const nextStep = () => setActive((current) => (current < 5 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <Box>
+    <Container>
       <Stack>
-        <Title>Apply Now</Title>
-        <Paper>
-          <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false} radius="md"
-                   size="sm">
-            <Stepper.Step label="Telephone" description="Verify your phone number">
+        <Title size={48} align="center" mb="md">Apply Now</Title>
+        <Paper p="lg" withBorder className={classes.form}>
+          <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
+            <Stepper.Step label="Telephone">
               <Stack>
-                <Alert icon={<MdHelpOutline size={16}/>}>
+                <Alert icon={<MdHelpOutline size={16}/>} variant="filled">
                   A verification code will be sent to your mobile. Note carrier charges may apply.
                 </Alert>
                 <TextInput
@@ -63,11 +71,11 @@ export default function RiderForm() {
                 <TextInput type="text" label="Code" placeholder="enter verification code sent to your mobile."/>
               </Stack>
             </Stepper.Step>
-            <Stepper.Step label="Personal information" description="Tell us about yourself">
+            <Stepper.Step label="Personal information">
               <Stack>
-                <Alert icon={<MdHelpOutline size={16}/>}>
-                  <Text>To register you must:</Text>
-                  <List>
+                <Alert icon={<MdHelpOutline size={16}/>} variant="filled">
+                  <Text size="md">To register you must:</Text>
+                  <List size="sm" sx={{color: 'white'}}>
                     <List.Item>Be at least 18 years old</List.Item>
                     <List.Item>Have a motorbike or bicycle Have a smartphone.</List.Item>
                     <List.Item>Have a smartphone.</List.Item>
@@ -94,27 +102,23 @@ export default function RiderForm() {
                   <Radio value="female" label="Female"/>
                   <Radio value="non-binary" label="Non binary"/>
                 </Radio.Group>
+                <Select label="City" placeholder="city" data={[{value: '', label: '---'},]}/>
+                <Radio.Group
+                  name="vehicle-type"
+                  label="What's your vehicle type?"
+                  orientation="vertical"
+                  withAsterisk
+                >
+                  <Radio value="bicycle" label="Bicycle"/>
+                  <Radio value="motorbike" label="Motorbike"/>
+                </Radio.Group>
               </Stack>
             </Stepper.Step>
-            <Stepper.Step label="Select your city">
-              <Select label="City" placeholder="city" data={[{value: '', label: '---'},]}/>
-            </Stepper.Step>
-            <Stepper.Step label="Select your vehicle">
-              <Radio.Group
-                name="vehicle-type"
-                label="What's your vehicle type?"
-                orientation="vertical"
-                withAsterisk
-              >
-                <Radio value="bicycle" label="Bicycle"/>
-                <Radio value="motorbike" label="Motorbike"/>
-              </Radio.Group>
-            </Stepper.Step>
-            <Stepper.Step label="Submit your Documents" description="Check document requirements below.">
+            <Stepper.Step label="Submit your Documents">
               <Stack>
-                <Alert icon={<MdHelpOutline size={16}/>}>
+                <Alert icon={<MdHelpOutline size={16}/>} variant="filled">
                   <Text>When uploading documents, make sure:</Text>
-                  <List>
+                  <List size="sm" sx={{color: 'white'}}>
                     <List.Item>the document image is clear</List.Item>
                     <List.Item>all text is readable</List.Item>
                     <List.Item>full document is visible in photo</List.Item>
@@ -163,7 +167,7 @@ export default function RiderForm() {
           </Group>
         </Paper>
       </Stack>
-    </Box>
+    </Container>
   );
 }
 

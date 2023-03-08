@@ -24,8 +24,13 @@ const useStyles = createStyles((theme) => ({
       height: 500,
     },
   },
-  heroText: {
+  heroTitle: {
+    fontSize: 48,
     color: theme.white
+  },
+  heroText: {
+    fontSize: 24,
+    color: theme.white,
   },
   control: {
     textTransform: 'capitalize'
@@ -53,8 +58,8 @@ export default function Create() {
         <Container fluid className={classes.heroContainer}>
           <Center sx={{height: '100%'}}>
             <Stack>
-              <Title className={classes.heroText}>Deliver with Uber Eats</Title>
-              <Text className={classes.heroText}>Flexible work, competitive fees</Text>
+              <Title className={classes.heroTitle}>Deliver with Uber Eats</Title>
+              <Text className={classes.heroText} mb="md">Flexible work, competitive fees</Text>
               <Flex gap="md">
                 <Button size="lg">Apply now to deliver</Button>
                 <Button size="lg">Already have an account? Sign in</Button>
@@ -64,11 +69,15 @@ export default function Create() {
         </Container>
       </Box>
       <Container fluid>
-        <Stack>
+        <Box my={60}>
           <RiderFeatures/>
+        </Box>
+        <Box my={60}>
           <RiderForm/>
+        </Box>
+        <Box mt={60}>
           <Faqs/>
-        </Stack>
+        </Box>
       </Container>
     </Wrapper>
   );

@@ -101,9 +101,7 @@ export  default function RestaurantFeatures() {
   return (
     <Box py="xl">
       <Stack align="center">
-        <Title align="center">
-          Why Signup to Meal Mart
-        </Title>
+        <Title align="center" size={48}>Why Signup to Meal Mart</Title>
         <Text color="dimmed" className={classes.description} align="center" mb="lg">
           Et sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque.
         </Text>

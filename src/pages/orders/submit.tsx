@@ -54,7 +54,7 @@ export default function Submit() {
         <Grid gutterXs="md" gutterMd="xl">
           <Grid.Col md={12} lg={7}>
             <Stack>
-              <Paper withBorder p="md">
+              <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
                 <Card.Section>
                   <Title order={4} mb="md">Personal Details</Title>
                 </Card.Section>
@@ -99,7 +99,7 @@ export default function Submit() {
                   </form>
                 </Card.Section>
               </Paper>
-              <Paper withBorder p="md">
+              <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
                 <Card.Section>
                   <Title order={4} mb="md">Payment method</Title>
                 </Card.Section>
@@ -143,7 +143,7 @@ export default function Submit() {
           </Grid.Col>
           <Grid.Col md={12} lg={5}>
             <Stack sx={{position: "sticky", top: 0}}>
-              <Paper withBorder p="md">
+              <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
                 <Card.Section>
                   <Title order={4} mb="md">Order summary</Title>
                 </Card.Section>

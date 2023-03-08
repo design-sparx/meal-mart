@@ -21,7 +21,6 @@ import {DatePicker, TimeInput} from "@mantine/dates";
 const useStyles = createStyles((theme: MantineTheme) => ({
   card: {
     padding: theme.spacing.md,
-    border: `1px solid ${theme.colors.gray[1]}`
   },
   item: {
     display: 'block',
@@ -36,10 +35,10 @@ const useStyles = createStyles((theme: MantineTheme) => ({
 }));
 
 function OrderSummary() {
-  const {classes} = useStyles();
+  const {classes, theme} = useStyles();
 
   return (
-    <Paper className={classes.card}>
+    <Paper className={classes.card} withBorder shadow="sm">
       <Card.Section mb="md">
         <Title order={4}>Order summary</Title>
       </Card.Section>

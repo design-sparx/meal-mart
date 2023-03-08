@@ -21,7 +21,7 @@ export default function Testimonials() {
       {Array.from({length: 3}).map((_, idx) => (
         <Carousel.Slide key={`testimonial-${idx}`}>
           <Paper>
-            <Flex>
+            <Flex align="center" gap="md">
               <Stack>
                 <Title>Unlock new growth</Title>
                 <Text>A pellentesque sit amet porttitor. Viverra maecenas accumsan lacus vel facilisis volutpat est.

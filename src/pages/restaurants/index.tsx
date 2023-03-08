@@ -22,7 +22,6 @@ import {scrollToView} from "@/utils/scrollToView";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
-    overflowX: 'hidden'
   },
   hero: {
     position: 'relative',
@@ -65,7 +64,7 @@ const useStyles = createStyles((theme) => ({
   },
   ordersWrapper: {
     position: "sticky",
-    top: 130,
+    top: 0,
     paddingTop: theme.spacing.lg
   },
   menuWrapper: {

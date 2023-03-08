@@ -9,7 +9,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    marginBottom: theme.spacing.xl * 1.5,
+    fontSize: 48,
   },
 
   item: {
@@ -29,8 +29,8 @@ export default function Faqs() {
   const {classes} = useStyles();
   return (
     <Box className={classes.wrapper}>
-      <Title align="center" className={classes.title}>Frequently Asked Questions</Title>
-      <Text size="lg" mb="lg" align="center">Here you&apos;ll be able find answers your questions</Text>
+      <Title align="center" className={classes.title} mb="md">Frequently Asked Questions</Title>
+      <Text size="lg" mb="md" align="center">Here you&apos;ll be able find answers your questions</Text>
 
       <Accordion variant="separated">
         <Accordion.Item className={classes.item} value="reset-password">

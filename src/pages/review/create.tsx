@@ -9,7 +9,7 @@ import {
   createStyles,
   FileInput,
   Flex,
-  MantineTheme,
+  MantineTheme, Paper,
   Rating,
   SimpleGrid,
   Stack,
@@ -23,7 +23,8 @@ import {MdHelp, MdSend} from "react-icons/md";
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   card: {
-    boxShadow: theme.shadows.md,
+    boxShadow: theme.shadows.sm,
+    backgroundColor: theme.colors.gray[0]
   }
 }))
 
@@ -32,17 +33,18 @@ export default function Create() {
 
   return (
     <Wrapper>
-      <Container>
-        <Card className={classes.card}>
+      <Container mt={60}>
+        <Paper className={classes.card} withBorder p="md">
           <Card.Section p="lg">
-            <Title>Write a review for &quot;Pinocchio&apos;s Servings&quot;</Title>
-            <Text>Product reviews help the rest of us make great decisions. Not sure where to start</Text>
+            <Title size={36} align="center" mb="md">Write a review for &quot;Pinocchio&apos;s Servings&quot;</Title>
+            <Text size="lg" align="center">Product reviews help the rest of us make great decisions. Not sure where to start</Text>
           </Card.Section>
           <Card.Section p="lg">
             <Stack>
               <SimpleGrid
                 cols={3}
                 spacing="lg"
+                mb="md"
                 breakpoints={[
                   {maxWidth: 'md', cols: 2, spacing: 'md'},
                   {maxWidth: 'sm', cols: 1, spacing: 'sm'},
@@ -59,7 +61,7 @@ export default function Create() {
                 </Box>
                 <Box>
                   <Flex>
-                    <Text>Easo of use</Text>
+                    <Text>Ease of use</Text>
                     <Tooltip label="How easy was this software to learn?">
                       <ActionIcon><MdHelp/></ActionIcon>
                     </Tooltip>
@@ -99,10 +101,10 @@ export default function Create() {
               <FileInput placeholder="choose image file" label="Add screenshot (optional)"/>
               <Checkbox
                 label="By submitting this review, I certify to Meal Mart and its affiliates (“Meal Mart”) that: I’m the person I represent to be; (ii) my feedback is based on my own experience with this product; (iii) my participation in this program is governed by the Community Guidelines and General User Terms; and (iv) Meal Mart will use my personal information to administer my participation in this program and for future communications per the Meal Mart Privacy Policy."/>
-              <Button leftIcon={<MdSend/>} size="md">Submit Review</Button>
+              <Button leftIcon={<MdSend/>} size="md" mt="md">Submit Review</Button>
             </Stack>
           </Card.Section>
-        </Card>
+        </Paper>
       </Container>
     </Wrapper>
   );

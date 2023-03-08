@@ -32,7 +32,6 @@ const useStyles = createStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-
   container: {
     height: 500,
     display: 'flex',
@@ -46,7 +45,6 @@ const useStyles = createStyles((theme) => ({
       paddingBottom: theme.spacing.xl * 3,
     },
   },
-
   title: {
     color: theme.white,
     fontSize: 54,
@@ -64,7 +62,6 @@ const useStyles = createStyles((theme) => ({
       lineHeight: 1.3,
     },
   },
-
   description: {
     color: theme.white,
     fontSize: 32,
@@ -78,7 +75,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function Contact() {
-  const {classes} = useStyles();
+  const {classes, theme} = useStyles();
   const form = useForm({
     initialValues: {
       name: '',
@@ -109,13 +106,12 @@ export default function Contact() {
             <Text className={classes.description} size="xl" mt="xl">The best of restaurant experience.</Text>
           </Container>
         </Box>
-        <Container>
-          <Grid>
+        <Container my={60}>
+          <Grid gutterXs="md" gutterMd="xl">
             <Grid.Col md={6} lg={8}>
-              <Paper>
-                <Box component="form" onSubmit={form.onSubmit(() => {
-                })}>
-                  <Title>Get in Touch</Title>
+              <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
+                <Box component="form" onSubmit={form.onSubmit(() => {})}>
+                  <Title order={3} mb="md">Get in Touch</Title>
                   <Group grow>
                     <TextInput label="Name" placeholder="Your name" withAsterisk {...form.getInputProps('name')} />
                     <TextInput
@@ -139,7 +135,6 @@ export default function Contact() {
                     mt="md"
                     {...form.getInputProps('message')}
                   />
-
                   <Group position="right" mt="md">
                     <Button type="submit">Submit</Button>
                   </Group>
@@ -148,24 +143,30 @@ export default function Contact() {
             </Grid.Col>
             <Grid.Col md={6} lg={4}>
               <Stack>
-                <Paper>
-                  <ThemeIcon>
-                    <MdOutlineHelpCenter/>
-                  </ThemeIcon>
-                  <Text>Help Center</Text>
-                  <Flex>
-                    <Anchor<'a'>>+254 706 094 433</Anchor>
-                    <Anchor<'a'>>help@fooddelivery.com</Anchor>
-                  </Flex>
-                  <Text>Open on: Monday - Friday (9am - 6pm)</Text>
+                <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
+                  <Stack spacing="xs">
+                    <Flex gap="sm">
+                      <ThemeIcon>
+                        <MdOutlineHelpCenter/>
+                      </ThemeIcon>
+                      <Text size="lg" weight={500}>Help Center</Text>
+                    </Flex>
+                    <Anchor<'a'> size="sm">+254 706 094 433</Anchor>
+                    <Anchor<'a'> size="sm">help@fooddelivery.com</Anchor>
+                    <Text size="sm">Open on: Monday - Friday (9am - 6pm)</Text>
+                  </Stack>
                 </Paper>
-                <Paper>
-                  <ThemeIcon>
-                    <MdOutlineLocationOn/>
-                  </ThemeIcon>
-                  <Text>Help Center</Text>
-                  <Text>10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
-                  <Text>Open on: Monday - Saturday (9am - 6pm)</Text>
+                <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
+                  <Stack spacing="xs">
+                    <Flex gap="sm">
+                      <ThemeIcon>
+                        <MdOutlineLocationOn/>
+                      </ThemeIcon>
+                      <Text size="lg" weight={500}>Address</Text>
+                    </Flex>
+                    <Text size="sm">10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
+                    <Text size="sm">Open on: Monday - Saturday (9am - 6pm)</Text>
+                  </Stack>
                 </Paper>
               </Stack>
             </Grid.Col>
