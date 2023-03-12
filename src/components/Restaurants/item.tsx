@@ -1,7 +1,8 @@
 import React from 'react';
 import {Badge, createStyles, Flex, Group, Image, Paper, Stack, Text, ThemeIcon} from "@mantine/core";
 import Link from "next/link";
-import {MdOutlineLocalFireDepartment, MdOutlineStar, MdOutlineStarHalf} from "react-icons/md";
+import {MdOutlineLocalFireDepartment, MdOutlineStar} from "react-icons/md";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   title: {
@@ -36,11 +37,18 @@ interface IProps {
 
 function RestaurantCard({avgPrice, ratings, type, imageUrl, link, title, location}: IProps) {
   const {classes} = useStyles();
+  const mediumScreen = useMediaQuery('(max-width: 769px)');
 
   return (
-    <Paper component={Link} href={`/${link}`} className={classes.card}>
-      <Flex align="center">
-        <Image src={imageUrl[0]} alt={`photo of ${title}`} radius="sm" height={200} width={200}/>
+    <Paper component={Link} href={`/${link}`} className={classes.card} p={mediumScreen ? 'md' : 0}>
+      <Flex align="center" direction={mediumScreen ? 'column' : 'row'}>
+        <Image
+          src={imageUrl[0]}
+          alt={`photo of ${title}`}
+          radius="sm"
+          height={mediumScreen ? 300 : 200}
+          width={mediumScreen ? '100%' : 200}
+          mb={mediumScreen ? 'md' : 0}/>
         <Stack mx="md" sx={{width: '100%'}}>
           <Flex justify="space-between" align="center">
             <Text size="sm" transform="capitalize">{type}</Text>

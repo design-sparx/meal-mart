@@ -21,6 +21,7 @@ import {
   Tooltip
 } from "@mantine/core";
 import {MdHelp, MdSend} from "react-icons/md";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   card: {
@@ -31,18 +32,20 @@ const useStyles = createStyles((theme: MantineTheme) => ({
 
 export default function Create() {
   const {classes, theme} = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
     <Wrapper>
       <Box sx={{backgroundColor: theme.colors.gray[0]}}>
         <Container pt={80} pb={120}>
-          <Paper className={classes.card} p="md">
+          <Paper className={classes.card} p={smallScreen ? 0 : "md"}>
             <Card.Section p="lg">
-              <Title size={48} align="center" mb="md">Write a review for &quot;Pinocchio&apos;s Servings&quot;</Title>
-              <Text size="lg" align="center">Product reviews help the rest of us make great decisions. Not sure where to
-                start</Text>
+              <Title size={smallScreen ? 28 : 48} align="center" mb="md">Write a review for &quot;Pinocchio&apos;s
+                Servings&quot;</Title>
+              <Text size={smallScreen ? 'md' : 'lg'} align="center">Product reviews help the rest of us make great
+                decisions. Not sure where to start</Text>
             </Card.Section>
-            <Card.Section p="lg">
+            <Card.Section p={smallScreen ? "md" : "lg"}>
               <Stack>
                 <SimpleGrid
                   cols={3}

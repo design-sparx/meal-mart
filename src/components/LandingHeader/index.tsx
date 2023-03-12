@@ -21,6 +21,7 @@ import LogoImgWhite from "@/assets/logo/logo-white.png";
 import Link from "next/link";
 import {MdKeyboardArrowDown} from "react-icons/md";
 import {useScrollPosition} from '@/hooks/useScrollPosition';
+import React from "react";
 
 const HEADER_HEIGHT = 60;
 
@@ -39,6 +40,11 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
     justifyContent: 'space-between',
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
+
+    [theme.fn.smallerThan('sm')]: {
+      paddingLeft: theme.spacing.sm,
+      paddingRight: theme.spacing.sm,
+    },
   },
 
   burger: {
@@ -108,13 +114,13 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
   },
 
   hiddenMobile: {
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       display: 'none',
     },
   },
 
   hiddenDesktop: {
-    [theme.fn.largerThan('sm')]: {
+    [theme.fn.largerThan('md')]: {
       display: 'none',
     },
   },
@@ -137,9 +143,10 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
   const scrollPosition: number = useScrollPosition()
   const {classes} = useStyles({scrollPosition: containNav ? scrollPosition : 6});
 
-  const mainItems = mainLinks.map((link) => {
+  const mainItems = mainLinks.concat(userLinks).map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link} component={Link} href={`/${item.link}`} className={classes.subLink}>{item.label}</Menu.Item>
+      <Menu.Item key={item.link} component={Link} href={`/${item.link}`}
+                 className={classes.subLink}>{item.label}</Menu.Item>
     ));
 
     if (menuItems) {
@@ -169,11 +176,33 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
     );
   });
 
-  const secondaryItems = userLinks.map((item) => (
-    <Button component={Link} href={`/${item.link}`} key={item.label} className={classes.link}>
-      {item.label}
-    </Button>
-  ));
+  const smallMainItems = mainLinks.concat(userLinks).map((link) => {
+    const menuItems = link.links?.map((item) => (
+      <Button
+        key={item.link}
+        component={Link}
+        href={`/${item.link}`}
+        variant="subtle"
+        color="dark"
+        sx={{textTransform: 'capitalize'}}>
+        {item.label}</Button>
+    ));
+
+    return (
+      <>
+        <Button
+          component={Link}
+          key={link.label}
+          href={`/${link.link}`}
+          variant="subtle"
+          color="dark"
+          sx={{textTransform: 'capitalize'}}>
+          {link.label}
+        </Button>
+        {menuItems}
+      </>
+    );
+  });
 
   return (
     <Box sx={{position: "sticky", top: 0, zIndex: 2}}>
@@ -184,24 +213,35 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
                    height={48} className={classes.imgBrand}/>
             <Text className={classes.title} ml="sm">Meal Mart</Text>
           </Box>
-          <Group spacing={1}>{mainItems}</Group>
-          <Group spacing={2}>{secondaryItems}</Group>
-          <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>
+          <Group spacing={0} className={classes.hiddenMobile}>{mainItems}</Group>
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            className={classes.hiddenDesktop}
+            color={containNav && scrollPosition < 5 ? '#fff' : '#000'}/>
         </Container>
       </Header>
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
-        size="100%"
         padding="md"
-        title="Navigation"
+        title={
+          <Box className={classes.navbarBrand} component={Link} href="/">
+            <Image src={LogoImgWhite} alt="Meal mart logo" height={48} className={classes.imgBrand}/>
+            <Text size="lg" ml="sm" color="dark" weight={600}>Meal Mart</Text>
+          </Box>
+        }
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
-        <ScrollArea sx={{height: 'calc(100vh - 60px)'}} mx="-md">
-          <Stack>{secondaryItems}</Stack>
-          <Stack spacing={0} className={classes.link}>
-            {mainItems}
+        <ScrollArea
+          sx={{
+            height: 'calc(100vh - 60px)',
+            // backgroundColor: containNav && scrollPosition < 5 ? theme.colors.dark[8] : theme.white
+          }}
+          mx="-md">
+          <Stack spacing="xs" pl="lg" align="flex-start">
+            {smallMainItems}
           </Stack>
         </ScrollArea>
       </Drawer>

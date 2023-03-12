@@ -1,6 +1,7 @@
 import {Box, Card, createStyles, Image, SimpleGrid, Stack, Text, Title,} from '@mantine/core';
 import {MdOutlineMouse} from "react-icons/md";
 import React from "react";
+import {useMediaQuery} from "@mantine/hooks";
 
 const mockdata = [
   {
@@ -82,6 +83,7 @@ const useStyles = createStyles((theme) => ({
 
 export  default function RestaurantFeatures() {
   const {classes} = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   const features = mockdata.map((_, idx) => (
     <Card key={_.title} shadow="md" radius="sm" className={classes.card} p="xl">
@@ -101,7 +103,7 @@ export  default function RestaurantFeatures() {
   return (
     <Box py="xl">
       <Stack align="center">
-        <Title align="center" size={48}>Why Signup to Meal Mart</Title>
+        <Title align="center" size={smallScreen ? 28 : 42}>Why Signup to Meal Mart</Title>
         <Text color="dimmed" className={classes.description} align="center" mb="lg">
           Et sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque.
         </Text>

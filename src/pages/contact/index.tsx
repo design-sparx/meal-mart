@@ -18,7 +18,7 @@ import {
   Title
 } from "@mantine/core";
 import React from "react";
-import {MdOutlineHelpCenter, MdOutlineLocationOn} from "react-icons/md";
+import {MdOutlineHelpCenter, MdOutlineLocationOn, MdOutlineSend} from "react-icons/md";
 import {hasLength, isEmail, isNotEmpty, useForm} from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
@@ -40,22 +40,18 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
     position: 'relative',
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       height: 500,
-      paddingBottom: theme.spacing.xl * 3,
+      paddingTop: theme.spacing.xl * 3,
+      justifyContent: 'center'
     },
   },
   title: {
     color: theme.white,
-    fontSize: 54,
-    fontWeight: 900,
+    fontSize: 48,
+    fontWeight: 700,
     lineHeight: 1.1,
     textAlign: 'center',
-
-    [theme.fn.smallerThan('sm')]: {
-      fontSize: 40,
-      lineHeight: 1.2,
-    },
 
     [theme.fn.smallerThan('xs')]: {
       fontSize: 28,
@@ -109,7 +105,7 @@ export default function Contact() {
         <Box sx={{backgroundColor: theme.colors.gray[0]}}>
           <Container pt={80} pb={120}>
             <Grid gutterXs="md" gutterMd="xl">
-              <Grid.Col md={6} lg={8}>
+              <Grid.Col md={8}>
                 <Paper p="md" shadow="sm">
                   <Box component="form" onSubmit={form.onSubmit(() => {
                   })}>
@@ -138,17 +134,17 @@ export default function Contact() {
                       {...form.getInputProps('message')}
                     />
                     <Group position="right" mt="md">
-                      <Button type="submit">Submit</Button>
+                      <Button type="submit" leftIcon={<MdOutlineSend size={14}/>}>Submit</Button>
                     </Group>
                   </Box>
                 </Paper>
               </Grid.Col>
-              <Grid.Col md={6} lg={4}>
+              <Grid.Col md={4}>
                 <Stack>
                   <Paper p="md" shadow="sm">
                     <Stack spacing="xs">
                       <Flex gap="sm">
-                        <ThemeIcon>
+                        <ThemeIcon variant="outline">
                           <MdOutlineHelpCenter/>
                         </ThemeIcon>
                         <Text size="lg" weight={500}>Help Center</Text>
@@ -161,7 +157,7 @@ export default function Contact() {
                   <Paper p="md" shadow="sm">
                     <Stack spacing="xs">
                       <Flex gap="sm">
-                        <ThemeIcon>
+                        <ThemeIcon variant="outline">
                           <MdOutlineLocationOn/>
                         </ThemeIcon>
                         <Text size="lg" weight={500}>Address</Text>

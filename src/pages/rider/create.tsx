@@ -4,6 +4,7 @@ import {Box, Button, Center, Container, createStyles, Flex, Overlay, Stack, Text
 import Faqs from "@/components/Faqs";
 import RiderFeatures from "@/components/RiderFeatures";
 import RiderForm from "@/components/RiderForm";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -21,16 +22,26 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.lg,
 
     [theme.fn.smallerThan('sm')]: {
-      height: 500,
+      height: 550,
+      paddingTop: theme.spacing.lg,
+      textAlign: 'center'
     },
   },
   heroTitle: {
     fontSize: 48,
-    color: theme.white
+    color: theme.white,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 28,
+    },
   },
   heroText: {
     fontSize: 24,
     color: theme.white,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 18,
+    },
   },
   control: {
     textTransform: 'capitalize'
@@ -46,6 +57,7 @@ const data = [
 
 export default function Create() {
   const {classes, theme} = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
     <Wrapper containNav={true}>
@@ -60,7 +72,7 @@ export default function Create() {
             <Stack align="center">
               <Title className={classes.heroTitle}>Deliver with Meal Mart</Title>
               <Text className={classes.heroText} mb="md">Flexible work, competitive fees</Text>
-              <Flex gap="md">
+              <Flex gap="md" wrap="wrap" sx={{justifyContent: smallScreen ? 'center' : 'flex-start'}}>
                 <Button size="md">Apply now to deliver</Button>
                 <Button size="md" variant="white">Already have an account? Sign in</Button>
               </Flex>

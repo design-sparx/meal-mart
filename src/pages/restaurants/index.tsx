@@ -20,6 +20,7 @@ import {
   MdLocationPin,
   MdOutlineFavoriteBorder,
   MdOutlineForum,
+  MdOutlineListAlt,
   MdOutlinePhotoSizeSelectActual,
   MdOutlineStar
 } from "react-icons/md";
@@ -28,6 +29,7 @@ import OrderSummary from "@/components/OrderSummary";
 import RestaurantReviews from "@/components/RestaurantReviews";
 import {scrollToView} from "@/utils/scrollToView";
 import {Carousel} from "@mantine/carousel";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {},
@@ -45,20 +47,35 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    paddingBottom: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl * 2,
     zIndex: 1,
     position: 'relative',
     overflow: 'hidden',
     paddingLeft: theme.spacing.xl,
     paddingRight: theme.spacing.xl,
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       height: 500,
       paddingBottom: theme.spacing.xl * 3,
+      alignItems: 'center',
+      gap: 8
+    },
+  },
+  heroTitle: {
+    color: theme.white,
+    fontSize: 48,
+
+    [theme.fn.smallerThan('md')]: {
+      textAlign: 'center',
+    },
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 28,
+      textAlign: 'center',
     },
   },
   heroText: {
-    color: theme.white
+    color: theme.white,
   },
   control: {
     textTransform: 'capitalize'
@@ -73,12 +90,23 @@ const useStyles = createStyles((theme) => ({
     zIndex: 2,
   },
   ordersWrapper: {
-    paddingTop: theme.spacing.xl
+    paddingTop: theme.spacing.xl,
+
+    [theme.fn.smallerThan('md')]: {
+      paddingBottom: 64,
+    },
   },
   menuWrapper: {
     backgroundColor: theme.colors.gray[0],
     paddingLeft: theme.spacing.xl,
     paddingRight: theme.spacing.xl,
+  },
+  title: {
+    fontSize: 48,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 36,
+    },
   }
 }))
 
@@ -97,7 +125,9 @@ export default function Home() {
   const dessertRef = useRef(null);
   const drinksRef = useRef(null);
   const reviewsRef = useRef(null);
+  const ordersRef = useRef(null);
   const [openGallery, setOpenGallery] = useState(false);
+  const mediumScreen = useMediaQuery('(max-width: 769px)');
 
   const handleOpenGallery = (): void => {
     setOpenGallery(true);
@@ -122,23 +152,40 @@ export default function Home() {
           zIndex={0}
         />
         <Container fluid className={classes.heroContainer}>
-          <Flex align="flex-end" justify="space-between" sx={{width: '100%'}} mb="md">
+          <Flex
+            align={mediumScreen ? 'center' : 'flex-end'}
+            justify="space-between"
+            sx={{width: '100%'}}
+            mb="md"
+            direction={mediumScreen ? 'column' : 'row'}
+            gap={mediumScreen ? 'md' : 0}>
             <Stack>
-              <Title className={classes.heroText}>Pinocchio&apos;s Servings</Title>
-              <Flex gap="xs" align="center">
+              <Title className={classes.heroTitle}>Pinocchio&apos;s Servings</Title>
+              <Flex gap={mediumScreen ? 'sm' : 'xs'} align="center" justify={mediumScreen ? 'center' : 'flex-start'}>
                 <Text className={classes.heroText}>Cuisine: Mexican</Text>
                 <Text className={classes.heroText}>-</Text>
                 <Text className={classes.heroText}>Location: 8 spo zas St, 499</Text>
-                <Text className={classes.heroText}>-</Text>
-                <Button
-                  className={classes.control}
-                  leftIcon={<MdLocationPin size={14}/>}
-                  variant="white">
-                  Get directions
-                </Button>
+                {!mediumScreen && <>
+									<Text className={classes.heroText}>-</Text>
+									<Button
+										className={classes.control}
+										leftIcon={<MdLocationPin size={14}/>}
+										variant="white">
+										Get directions
+									</Button>
+								</>}
               </Flex>
             </Stack>
-            <Flex gap="xs">
+            <Flex gap={mediumScreen ? 'sm' : 'md'} wrap="wrap" justify={mediumScreen ? 'center' : 'flex-start'}>
+              {mediumScreen && <>
+								<Text className={classes.heroText}>-</Text>
+								<Button
+									className={classes.control}
+									leftIcon={<MdLocationPin size={14}/>}
+									variant="white">
+									Get directions
+								</Button>
+							</>}
               <Button
                 leftIcon={<MdOutlinePhotoSizeSelectActual/>}
                 className={classes.control}
@@ -160,16 +207,22 @@ export default function Home() {
           </Flex>
         </Container>
       </Box>
-      <Flex gap="sm" className={classes.stickyTab}>
+      <Flex gap={mediumScreen ? 'xs' : 'sm'} className={classes.stickyTab} sx={{width: '100%', overflowY: 'auto'}}>
         <Button variant="subtle" onClick={() => scrollToView(starterRef)}>Starters</Button>
         <Button variant="subtle" onClick={() => scrollToView(mainRef)}>Main Course</Button>
         <Button variant="subtle" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
         <Button variant="subtle" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
         <Divider orientation="vertical"/>
         <Button
-          variant="light"
-          leftIcon={<MdOutlineForum size={18}/>}
+          variant="outline"
+          leftIcon={<MdOutlineForum size={14}/>}
           onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
+        {mediumScreen &&
+					<Button
+						variant="outline"
+						leftIcon={<MdOutlineListAlt size={14}/>}
+						onClick={() => scrollToView(ordersRef)}>Order summary</Button>
+        }
       </Flex>
       <Box sx={{overflow: 'hidden'}}>
         <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl" gutterLg={48}>
@@ -190,7 +243,7 @@ export default function Home() {
             </Box>
           </Grid.Col>
           <Grid.Col md={12} lg={4}>
-            <Box component="div" className={classes.ordersWrapper}>
+            <Box component="div" className={classes.ordersWrapper} ref={ordersRef}>
               <OrderSummary/>
             </Box>
           </Grid.Col>

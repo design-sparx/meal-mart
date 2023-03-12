@@ -8,8 +8,8 @@ function FoodList() {
       cols={3}
       spacing="lg"
       breakpoints={[
-        { maxWidth: 'md', cols: 3, spacing: 'md' },
-        { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+        { maxWidth: 'md', cols: 2, spacing: 'md' },
+        { maxWidth: 'sm', cols: 1, spacing: 'sm' },
         { maxWidth: 'xs', cols: 1, spacing: 'sm' },
       ]}>
       {Array.from({length: 12}).map((_, idx) => (

@@ -2,6 +2,7 @@ import {Anchor, Button, Container, createStyles, Group, Overlay, Text, TextInput
 import {MdOutlineSearch} from "react-icons/md";
 import React from "react";
 import Link from "next/link";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -22,20 +23,26 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
     position: 'relative',
 
+    [theme.fn.smallerThan('md')]: {
+      height: 500,
+      paddingBottom: theme.spacing.xl * 3,
+      alignItems: 'center',
+    },
+
     [theme.fn.smallerThan('sm')]: {
       height: 500,
       paddingBottom: theme.spacing.xl * 3,
+      textAlign: 'center',
     },
   },
 
   title: {
     color: theme.white,
-    fontSize: 54,
-    fontWeight: 900,
+    fontSize: 48,
+    fontWeight: 700,
     lineHeight: 1.1,
 
-    [theme.fn.smallerThan('sm')]: {
-      fontSize: 40,
+    [theme.fn.smallerThan('md')]: {
       lineHeight: 1.2,
     },
 
@@ -49,9 +56,9 @@ const useStyles = createStyles((theme) => ({
     color: theme.white,
     fontSize: 24,
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       maxWidth: '100%',
-      fontSize: theme.fontSizes.sm,
+      fontSize: theme.fontSizes.lg,
     },
   },
 
@@ -76,6 +83,7 @@ const useStyles = createStyles((theme) => ({
 
 function Hero() {
   const {classes} = useStyles();
+  const mediumScreen = useMediaQuery('(max-width: 769px)');
 
   return (
     <div className={classes.hero}>
@@ -90,12 +98,12 @@ function Hero() {
         <TextInput
           className={classes.control}
           icon={<MdOutlineSearch size={24}/>}
-          size="xl"
+          size={mediumScreen ? 'lg' : 'xl'}
           rightSection={
-            <Button size="md" variant="white" component={Link} href="feed">Search</Button>
+            <Button size={mediumScreen ? 'sm' : 'md'} variant="white" component={Link} href="feed">Search</Button>
           }
           placeholder="what are you looking for..."
-          rightSectionWidth={110}
+          rightSectionWidth={mediumScreen ? 90 : 110}
         />
         <Group className={classes.trending} spacing="sm">
           <Text>Trending searches: </Text>

@@ -22,6 +22,7 @@ import {
 import RestaurantFeatures from "@/components/RestaurantFeatures";
 import Testimonials from "@/components/Testimonials";
 import Faqs from "@/components/Faqs";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -40,13 +41,25 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: theme.spacing.xl,
     paddingRight: theme.spacing.xl,
 
+    '@media (max-width: 1025px)': {
+      height: '100%',
+      paddingBottom: theme.spacing.xl,
+    },
+
     [theme.fn.smallerThan('sm')]: {
-      height: 500,
+      height: '100%',
+      paddingLeft: 0,
+      paddingRight: 0,
     },
   },
   heroTitle: {
     color: theme.white,
-    fontSize: 48
+    fontSize: 48,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 28,
+      marginBottom: theme.spacing.lg,
+    },
   },
   heroText: {
     color: theme.white,
@@ -66,6 +79,8 @@ const data = [
 
 export default function Create() {
   const {classes} = useStyles();
+  const mediumScreen = useMediaQuery('(max-width: 769px)');
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
     <Wrapper containNav={false}>
@@ -77,11 +92,11 @@ export default function Create() {
         />
         <Container fluid className={classes.heroContainer}>
           <Grid sx={{height: '100%', alignItems: 'center'}}>
-            <Grid.Col lg={8} sx={{textAlign: 'center'}}>
+            <Grid.Col md={5} lg={8} sx={{textAlign: 'center'}}>
               <Title className={classes.heroTitle}>Attract New Customers</Title>
               <Text className={classes.heroText}>More bookings from diners around the corner</Text>
             </Grid.Col>
-            <Grid.Col lg={4}>
+            <Grid.Col md={7} lg={4}>
               <Paper p="md">
                 <Title order={3} mb="md">Get started</Title>
                 <form action="">
@@ -127,31 +142,32 @@ export default function Create() {
         </Container>
       </Container>
       <Container>
-        <Container fluid pt={80} pb={120}>
+        <Box pt={80} pb={120}>
           <RestaurantFeatures/>
-        </Container>
-        <Container fluid pt={80} pb={120}>
+        </Box>
+        <Box pt={80} pb={120}>
           <Testimonials/>
-        </Container>
-        <Container fluid pt={80} pb={120}>
-          <Flex justify="space-evenly" align="center" gap="md">
+        </Box>
+        <Box pt={80} pb={120}>
+          <Flex justify="space-evenly" align="center" gap="md" direction={mediumScreen ? 'column-reverse' : 'row'}>
             <Image
               src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80"
-              alt="get started image" width={500}
+              alt="get started image"
+              width={mediumScreen ? 400 : 500}
               radius="md"/>
             <Stack>
-              <Title>Get started in just 3 steps</Title>
-              <List type="ordered">
+              <Title size={smallScreen ? 28 : 42} align={smallScreen ? 'center' : 'left'}>Get started in just 3 steps</Title>
+              <List type="ordered" sx={{textAlign: mediumScreen ? 'center' : 'left'}}>
                 <List.Item>Tell us about your business</List.Item>
                 <List.Item>Upload you product catalog</List.Item>
                 <List.Item>Get access to your business dashboard</List.Item>
               </List>
             </Stack>
           </Flex>
-        </Container>
-        <Container fluid pt={80} pb={120}>
+        </Box>
+        <Box pt={80}>
           <Faqs/>
-        </Container>
+        </Box>
       </Container>
     </Wrapper>
   );

@@ -3,13 +3,18 @@ import {Accordion, Box, createStyles, Text, Title} from '@mantine/core';
 const useStyles = createStyles((theme) => ({
   wrapper: {
     minHeight: 650,
-    width: 720,
+    maxWidth: 720,
     marginLeft: 'auto',
     marginRight: 'auto'
   },
 
   title: {
     fontSize: 48,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 28,
+      marginBottom: theme.spacing.lg,
+    },
   },
 
   item: {
@@ -27,6 +32,7 @@ const placeholder =
 
 export default function Faqs() {
   const {classes} = useStyles();
+
   return (
     <Box className={classes.wrapper}>
       <Title align="center" className={classes.title} mb="md">Frequently Asked Questions</Title>

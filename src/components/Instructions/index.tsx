@@ -1,4 +1,4 @@
-import {Box, Card, Container, createStyles, SimpleGrid, Stack, Text, Title,} from '@mantine/core';
+import {Card, Container, createStyles, SimpleGrid, Stack, Text, Title,} from '@mantine/core';
 import {MdOutlineMouse} from "react-icons/md";
 import Image from "next/image";
 import FeatureImg1 from "@/assets/img/feature-icon-1.jpg";

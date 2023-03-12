@@ -48,12 +48,18 @@ const useStyles = createStyles((theme) => ({
     flexWrap: 'wrap',
 
     [theme.fn.smallerThan('sm')]: {
-      display: 'none',
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: theme.spacing.lg
     },
   },
 
   wrapper: {
     width: 160,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: '50%',
+    },
   },
 
   link: {

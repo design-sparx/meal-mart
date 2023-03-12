@@ -25,6 +25,7 @@ import {
 import React from "react";
 import {MdOutlineCreditCard, MdOutlineDeliveryDining, MdOutlineSend, MdRemoveCircle} from "react-icons/md";
 import {FaPaypal} from "react-icons/fa";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   item: {
@@ -49,12 +50,14 @@ const data = [
 export default function Submit() {
   const {classes, theme} = useStyles();
   const getColor = (color: string) => theme.colors[color][theme.colorScheme === 'dark' ? 5 : 7];
+  const mediumScreen = useMediaQuery('(max-width: 769px)');
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
     <Wrapper>
       <Box sx={{backgroundColor: theme.colors.gray[0]}}>
         <Container pt={80} pb={120}>
-          <Title size={48} mb="xl" align="center">Complete the form below</Title>
+          <Title size={smallScreen ? 28 : 42} mb="xl" align="center">Complete the form below</Title>
           <Grid gutterXs="md" gutterMd="xl">
             <Grid.Col md={12} lg={7}>
               <Stack spacing="lg">
@@ -147,7 +150,7 @@ export default function Submit() {
               </Stack>
             </Grid.Col>
             <Grid.Col md={12} lg={5}>
-              <Stack>
+              <Stack sx={{flexDirection: mediumScreen ? 'column-reverse' : 'column'}}>
                 <Paper p="md" shadow="sm">
                   <Card.Section>
                     <Title order={4} mb="md">Order summary</Title>

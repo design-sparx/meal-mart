@@ -7,17 +7,9 @@
     {
       "link": "contact",
       "label": "contact"
-    },
-    {
-      "link": "#",
-      "label": "profile"
     }
   ],
   "mainLinks": [
-    {
-      "link": "",
-      "label": "home"
-    },
     {
       "link": "feed",
       "label": "feed"

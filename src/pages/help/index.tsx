@@ -18,6 +18,7 @@ import {
 import React from "react";
 import {MdOutlineBook, MdOutlineSearch} from "react-icons/md";
 import FaqsData from "@/data/Faqs.json";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -29,26 +30,41 @@ const useStyles = createStyles((theme) => ({
   },
   heroContainer: {
     height: 650,
-    paddingBottom: theme.spacing.xl,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     zIndex: 1,
     position: 'relative',
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       height: 500,
-      paddingBottom: theme.spacing.xl * 3,
+      paddingTop: theme.spacing.xl * 3,
+      justifyContent: 'center'
     },
   },
   heroTitle: {
     color: theme.white,
-    fontSize: 48
+    fontSize: 48,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 28,
+    },
   },
   heroText: {
     color: theme.white,
     fontSize: 24,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 18,
+    },
   },
   control: {
     textTransform: 'capitalize',
     width: 600,
+
+    [theme.fn.smallerThan('sm')]: {
+      width: '100%',
+    },
   },
   categoryCard: {
     height: 160,
@@ -56,7 +72,7 @@ const useStyles = createStyles((theme) => ({
     backgroundSize: '100%',
     backgroundPosition: 'center',
     color: theme.white,
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.sm,
     padding: theme.spacing.xl,
     overflow: 'hidden',
     transition: 'background-size 300ms ease',
@@ -65,7 +81,6 @@ const useStyles = createStyles((theme) => ({
       backgroundSize: '105%',
     },
   },
-
   categoryLabel: {
     color: theme.white,
     zIndex: 2,
@@ -102,6 +117,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function Help() {
   const {classes, theme} = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
     <Wrapper containNav={true}>
@@ -130,10 +146,18 @@ export default function Help() {
           </Container>
         </Box>
         <Container pt={80} pb={120}>
-          <Title align="center" size={48} mb="xl">Select topic</Title>
+          <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Select topic</Title>
           <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
             elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          <SimpleGrid cols={4}>
+          <SimpleGrid
+            cols={4}
+            spacing="xl"
+            breakpoints={[
+              {maxWidth: 'lg', cols: 3, spacing: 'lg'},
+              {maxWidth: 'md', cols: 2, spacing: 'md'},
+              {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+              {maxWidth: 'xs', cols: 1, spacing: 'sm'},
+            ]}>
             {FaqsData.categories.map((_, idx) => (
               <UnstyledButton
                 style={{backgroundImage: `url(${_.image})`}}
@@ -150,15 +174,15 @@ export default function Help() {
         </Container>
         <Box sx={{backgroundColor: theme.colors.gray[0]}}>
           <Container pt={80} pb={120}>
-            <Title align="center" size={48} mb="xl">Relevant links</Title>
+            <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Relevant links</Title>
             <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
               elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
             <SimpleGrid
               cols={3}
               spacing="lg"
               breakpoints={[
-                {maxWidth: 'md', cols: 3, spacing: 'md'},
-                {maxWidth: 'sm', cols: 2, spacing: 'sm'},
+                {maxWidth: 'md', cols: 2, spacing: 'md'},
+                {maxWidth: 'sm', cols: 1, spacing: 'sm'},
                 {maxWidth: 'xs', cols: 1, spacing: 'sm'},
               ]}>
               {Array.from({length: 10}).map((_, idx) => (

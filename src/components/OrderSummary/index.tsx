@@ -17,6 +17,7 @@ import {
 } from "@mantine/core";
 import {MdOutlineSend, MdRemoveCircle} from "react-icons/md";
 import {DatePicker, TimeInput} from "@mantine/dates";
+import Link from 'next/link';
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   card: {
@@ -89,7 +90,7 @@ function OrderSummary() {
         </SimpleGrid>
       </Card.Section>
       <Card.Section>
-        <Button fullWidth leftIcon={<MdOutlineSend/>} size="md">Place order</Button>
+        <Button fullWidth leftIcon={<MdOutlineSend/>} size="md" component={Link} href="/orders/submit">Place order</Button>
         <Text align="center" size="sm" mt="sm" italic>Proceed to checkout</Text>
       </Card.Section>
     </Paper>

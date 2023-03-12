@@ -20,6 +20,7 @@ import {
 } from '@mantine/core';
 import React, {useState} from 'react';
 import {MdCheckCircle, MdHelpOutline, MdOutlineUploadFile} from 'react-icons/md';
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -38,13 +39,14 @@ const data = [
 export default function RiderForm() {
   const {classes} = useStyles();
   const [active, setActive] = useState(0);
+  const smallScreen = useMediaQuery('(max-width: 426px)');
   const nextStep = () => setActive((current) => (current < 5 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
     <Container>
       <Stack>
-        <Title size={48} align="center" mb="xl">Apply Now</Title>
+        <Title size={smallScreen ? 28 : 48} align="center" mb="xl">Apply Now</Title>
         <Paper p="lg" className={classes.form}>
           <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
             <Stepper.Step label="Telephone">
