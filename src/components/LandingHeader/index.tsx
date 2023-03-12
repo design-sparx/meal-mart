@@ -135,7 +135,7 @@ interface LinkProps {
 interface IProps {
   mainLinks: LinkProps[]
   userLinks: LinkProps[]
-  containNav: boolean
+  containNav: boolean | undefined
 }
 
 function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
@@ -145,13 +145,13 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
 
   const mainItems = mainLinks.concat(userLinks).map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link} component={Link} href={`/${item.link}`}
+      <Menu.Item key={`lg-${item.link}`} component={Link} href={`/${item.link}`}
                  className={classes.subLink}>{item.label}</Menu.Item>
     ));
 
     if (menuItems) {
       return (
-        <Menu key={link.label} trigger="hover" withinPortal>
+        <Menu key={`lg-${link.link}`} trigger="hover" withinPortal>
           <Menu.Target>
             <Button
               component={Link}
@@ -179,7 +179,7 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
   const smallMainItems = mainLinks.concat(userLinks).map((link) => {
     const menuItems = link.links?.map((item) => (
       <Button
-        key={item.link}
+        key={`sm-${item.link}`}
         component={Link}
         href={`/${item.link}`}
         variant="subtle"
@@ -191,8 +191,8 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
     return (
       <>
         <Button
+          key={`sm-${link.link}`}
           component={Link}
-          key={link.label}
           href={`/${link.link}`}
           variant="subtle"
           color="dark"

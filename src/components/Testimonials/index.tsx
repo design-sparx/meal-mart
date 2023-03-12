@@ -29,7 +29,7 @@ export default function Testimonials() {
             <Paper sx={{textAlign: smallScreen ? 'center' : 'left'}}>
               <Flex align="center" gap="md" direction={smallScreen ? 'column-reverse' : 'row'}>
                 <Stack>
-                  <Title order={2}>Unlock new growth</Title>
+                  <Title order={smallScreen ? 3 : 2}>Unlock new growth</Title>
                   <Text>A pellentesque sit amet porttitor. Viverra maecenas accumsan lacus vel facilisis volutpat est.
                     Tellus pellentesque eu tincidunt tortor. Ornare quam viverra orci sagittis eu volutpat. Nunc non
                     blandit massa enim. Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing.
@@ -40,6 +40,7 @@ export default function Testimonials() {
                   alt="testimonial image"
                   radius="md"
                   height={smallScreen ? 200 : mediumScreen ? 300 : 400}
+                  width={smallScreen ? '100%' : mediumScreen ? 300 : 500}
                   fit="cover"/>
               </Flex>
             </Paper>

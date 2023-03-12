@@ -17,6 +17,7 @@ import {
 } from "@mantine/core";
 import React, {useRef, useState} from "react";
 import {
+  MdFavorite,
   MdLocationPin,
   MdOutlineFavoriteBorder,
   MdOutlineForum,
@@ -29,7 +30,8 @@ import OrderSummary from "@/components/OrderSummary";
 import RestaurantReviews from "@/components/RestaurantReviews";
 import {scrollToView} from "@/utils/scrollToView";
 import {Carousel} from "@mantine/carousel";
-import {useMediaQuery} from "@mantine/hooks";
+import {useMediaQuery, useToggle} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {},
@@ -86,6 +88,7 @@ const useStyles = createStyles((theme) => ({
     top: 60,
     padding: theme.spacing.md,
     borderBottom: `1px solid ${theme.colors.gray[3]}`,
+    boxShadow: theme.shadows.sm,
     borderTop: `1px solid ${theme.colors.gray[3]}`,
     zIndex: 2,
   },
@@ -128,6 +131,7 @@ export default function Home() {
   const ordersRef = useRef(null);
   const [openGallery, setOpenGallery] = useState(false);
   const mediumScreen = useMediaQuery('(max-width: 769px)');
+  const [value, toggle] = useToggle();
 
   const handleOpenGallery = (): void => {
     setOpenGallery(true);
@@ -170,22 +174,33 @@ export default function Home() {
 									<Button
 										className={classes.control}
 										leftIcon={<MdLocationPin size={14}/>}
-										variant="white">
+										variant="white"
+										onClick={() => {
+                      showNotification({
+                        title: `Getting directions`,
+                        message: 'Hey there, you are doing great! 🤥',
+                      });
+                    }}>
 										Get directions
 									</Button>
 								</>}
               </Flex>
             </Stack>
             <Flex gap={mediumScreen ? 'sm' : 'md'} wrap="wrap" justify={mediumScreen ? 'center' : 'flex-start'}>
-              {mediumScreen && <>
-								<Text className={classes.heroText}>-</Text>
+              {mediumScreen &&
 								<Button
 									className={classes.control}
 									leftIcon={<MdLocationPin size={14}/>}
-									variant="white">
+									variant="white"
+									onClick={() => {
+                    showNotification({
+                      title: `Getting directions`,
+                      message: 'Hey there, you are doing great! 🤥',
+                    });
+                  }}>
 									Get directions
 								</Button>
-							</>}
+              }
               <Button
                 leftIcon={<MdOutlinePhotoSizeSelectActual/>}
                 className={classes.control}
@@ -194,32 +209,42 @@ export default function Home() {
                 view photos
               </Button>
               <Button
-                leftIcon={<MdOutlineFavoriteBorder/>}
+                leftIcon={value ? <MdFavorite/> : <MdOutlineFavoriteBorder/>}
                 className={classes.control}
-                variant="white">
-                add to favorites
+                variant="white"
+                onClick={() => {
+                  toggle();
+                  showNotification({
+                    title: `${value ? 'Removed from favorites' : 'Added to favorites'}`,
+                    message: 'Hey there, you are doing great! 🤥',
+                  });
+                }
+                }>
+                {value ? 'Remove from favorites' : 'Add to favorites'}
               </Button>
             </Flex>
           </Flex>
-          <Flex gap="xs" align="center">
-            <Badge size="xl" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
+          <Flex gap="sm" align="center">
+            <Badge size="xl" radius="sm" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
             <Text className={classes.heroText}>310 reviews</Text>
           </Flex>
         </Container>
       </Box>
       <Flex gap={mediumScreen ? 'xs' : 'sm'} className={classes.stickyTab} sx={{width: '100%', overflowY: 'auto'}}>
-        <Button variant="subtle" onClick={() => scrollToView(starterRef)}>Starters</Button>
-        <Button variant="subtle" onClick={() => scrollToView(mainRef)}>Main Course</Button>
-        <Button variant="subtle" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
-        <Button variant="subtle" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
+        <Button variant="subtle" color="gray" onClick={() => scrollToView(starterRef)}>Starters</Button>
+        <Button variant="subtle" color="gray" onClick={() => scrollToView(mainRef)}>Main Course</Button>
+        <Button variant="subtle" color="gray" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
+        <Button variant="subtle" color="gray" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
         <Divider orientation="vertical"/>
         <Button
-          variant="outline"
+          variant="subtle"
+          color="gray"
           leftIcon={<MdOutlineForum size={14}/>}
           onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
         {mediumScreen &&
 					<Button
-						variant="outline"
+						variant="subtle"
+						color="gray"
 						leftIcon={<MdOutlineListAlt size={14}/>}
 						onClick={() => scrollToView(ordersRef)}>Order summary</Button>
         }

@@ -14,6 +14,7 @@ import {
   Grid,
   Pagination,
   Radio,
+  Skeleton,
   Slider,
   Stack,
   Switch,
@@ -34,6 +35,7 @@ import CategoryCard from "@/components/Categories/item";
 import FoodList from "@/components/FoodList";
 import CatagoriesData from "@/data/Categories.json";
 import {useMediaQuery} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   search: {
@@ -59,9 +61,17 @@ function Index(): JSX.Element {
   const {classes} = useStyles();
   const [value, setValue] = useState('your-picks');
   const [opened, setOpened] = useState(false);
+  const [loading, setLoading] = useState(false);
   const largeScreen = useMediaQuery('(max-width: 1024px)');
   const smallScreen = useMediaQuery('(max-width: 426px)');
   const mediumScreen = useMediaQuery('(max-width: 769px)');
+
+  const handleFilter = (): void => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }
 
   useEffect(() => {
     setOpened(true);
@@ -78,7 +88,13 @@ function Index(): JSX.Element {
             direction={smallScreen ? 'column' : 'row'}>
             <Stack align="flex-start">
               <Title order={4}>Location: 124 drive, Abc Rd</Title>
-              <Button leftIcon={<MdLocationPin size={18}/>} variant="outline">Change address</Button>
+              <Button leftIcon={<MdLocationPin size={18}/>} variant="outline" onClick={() => {
+                showNotification({
+                  title: 'Address change',
+                  message: 'Hey there, you are doing great! 🤥',
+                })
+              }
+              }>Change address</Button>
             </Stack>
             <TextInput
               icon={<MdOutlineSearch size={24}/>}
@@ -192,7 +208,8 @@ function Index(): JSX.Element {
                     </Accordion.Item>
                   </Accordion>
                   <Divider/>
-                  <Button leftIcon={<MdOutlineFilterAlt size={18}/>} size="md">Apply filter</Button>
+                  <Button leftIcon={<MdOutlineFilterAlt size={18}/>} size="md" onClick={handleFilter} loading={loading}>Apply
+                    filter</Button>
                 </Stack>
               </Collapse>
             </Grid.Col>
@@ -222,13 +239,15 @@ function Index(): JSX.Element {
                   >
                     {CatagoriesData.data.map((_, idx) =>
                       <Carousel.Slide key={`carousel-category-card-${idx}`}>
-                        <CategoryCard
-                          key={`category-card-${idx}`}
-                          title={_.title}
-                          price={_.price}
-                          imageUrl={_.imageUrl}
-                          link=""
-                          size="sm"/>
+                        <Skeleton visible={loading}>
+                          <CategoryCard
+                            key={`category-card-${idx}`}
+                            title={_.title}
+                            price={_.price}
+                            imageUrl={_.imageUrl}
+                            link=""
+                            size="sm"/>
+                        </Skeleton>
                       </Carousel.Slide>
                     )}
                   </Carousel>
@@ -241,7 +260,7 @@ function Index(): JSX.Element {
                   </Stack>
                 </Box>
                 <Box>
-                  <FoodList/>
+                  <FoodList loading={loading}/>
                 </Box>
                 <Center mt="xl">
                   <Pagination total={10} radius="md" withEdges/>

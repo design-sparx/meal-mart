@@ -9,7 +9,7 @@ import {
   createStyles,
   Divider,
   Flex,
-  Grid,
+  Grid, LoadingOverlay,
   MantineTheme,
   NativeSelect,
   NumberInput,
@@ -22,10 +22,17 @@ import {
   Title,
   UnstyledButton
 } from "@mantine/core";
-import React from "react";
-import {MdOutlineCreditCard, MdOutlineDeliveryDining, MdOutlineSend, MdRemoveCircle} from "react-icons/md";
+import React, { useState } from "react";
+import {
+  MdOutlineCreditCard,
+  MdOutlineDeliveryDining,
+  MdOutlineDiscount,
+  MdOutlineSend,
+  MdRemoveCircle
+} from "react-icons/md";
 import {FaPaypal} from "react-icons/fa";
 import {useMediaQuery} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme: MantineTheme) => ({
   item: {
@@ -52,16 +59,29 @@ export default function Submit() {
   const getColor = (color: string) => theme.colors[color][theme.colorScheme === 'dark' ? 5 : 7];
   const mediumScreen = useMediaQuery('(max-width: 769px)');
   const smallScreen = useMediaQuery('(max-width: 426px)');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showNotification({
+        title: 'Form submitted',
+        message: 'Hey there, you are doing great! 🤥',
+      });
+    }, 3000);
+  }
 
   return (
     <Wrapper>
       <Box sx={{backgroundColor: theme.colors.gray[0]}}>
         <Container pt={80} pb={120}>
-          <Title size={smallScreen ? 28 : 42} mb="xl" align="center">Complete the form below</Title>
+          <Title size={smallScreen ? 28 : 35} mb="xl" align="center">Complete the form below</Title>
           <Grid gutterXs="md" gutterMd="xl">
             <Grid.Col md={12} lg={7}>
               <Stack spacing="lg">
-                <Paper p="md" shadow="sm">
+                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                  <LoadingOverlay visible={loading}/>
                   <Card.Section>
                     <Title order={4} mb="md">Personal Details</Title>
                   </Card.Section>
@@ -106,7 +126,8 @@ export default function Submit() {
                     </form>
                   </Card.Section>
                 </Paper>
-                <Paper p="md" shadow="sm">
+                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                  <LoadingOverlay visible={loading}/>
                   <Card.Section>
                     <Title order={4} mb="md">Payment method</Title>
                   </Card.Section>
@@ -151,7 +172,8 @@ export default function Submit() {
             </Grid.Col>
             <Grid.Col md={12} lg={5}>
               <Stack sx={{flexDirection: mediumScreen ? 'column-reverse' : 'column'}}>
-                <Paper p="md" shadow="sm">
+                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                  <LoadingOverlay visible={loading}/>
                   <Card.Section>
                     <Title order={4} mb="md">Order summary</Title>
                   </Card.Section>
@@ -206,19 +228,28 @@ export default function Submit() {
                   </Card.Section>
                   <Card.Section>
                     <Stack spacing="xs">
-                      <Button fullWidth leftIcon={<MdOutlineSend/>} size="md">Order now</Button>
+                      <Button fullWidth leftIcon={<MdOutlineSend/>} size="md" onClick={handleSubmit}>Order now</Button>
                       <Text align="center" component={Anchor}>Helpline: +(00) 00-919-922</Text>
                     </Stack>
                   </Card.Section>
                 </Paper>
-                <Paper p="md" shadow="sm">
+                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                  <LoadingOverlay visible={loading}/>
                   <Card.Section>
                     <Title order={4} mb="md">Discounts, Voucher, Offers</Title>
                   </Card.Section>
                   <Card.Section>
                     <Stack>
                       <TextInput label="Do you have a voucher?" placeholder="enter voucher, promo, discount code"/>
-                      <Button size="md">Add voucher</Button>
+                      <Button
+                        size="sm"
+                        leftIcon={<MdOutlineDiscount/>}
+                        onClick={() => {
+                          showNotification({
+                            title: 'Voucher added',
+                            message: 'Hey there, you are doing great! 🤥',
+                          })}
+                        }>Add voucher</Button>
                     </Stack>
                   </Card.Section>
                 </Paper>

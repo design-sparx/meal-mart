@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ActionIcon,
   Box,
@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import Image from "next/image"
 import {
+  MdOutlineCommentBank,
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
   MdOutlineMoreVert,
@@ -25,46 +26,62 @@ import {
 } from "react-icons/md";
 import Link from "next/link";
 import {useMediaQuery} from "@mantine/hooks";
+import { openConfirmModal } from '@mantine/modals';
+import {useRouter} from "next/router";
 
-function RestaurantReviews() {
+export default function RestaurantReviews() {
   const theme = useMantineTheme();
   const smallScreen = useMediaQuery('(max-width: 426px)');
+  const router = useRouter()
+
+  const handleSubmitReview = () => openConfirmModal({
+    title: 'Proceed to add your review?',
+    children: null,
+    labels: { confirm: 'Confirm', cancel: 'Cancel' },
+    onCancel: () => console.log('Cancel'),
+    onConfirm: () => router.push('/review/create'),
+  });
 
   return (
     <Box>
       <Title size={smallScreen ? 28 : 48} mb="xl" align="center">Ratings & Reviews</Title>
-      <Flex mb="xl" gap="lg" align="center" direction={smallScreen ? 'column' : 'row'}>
-        <Paper withBorder p="lg">
-          <Stack align="center" spacing="sm">
-            <Text size={smallScreen ? 24 : 32} weight={600}>8.2</Text>
-            <Rating defaultValue={4.2}/>
-            <Text size="sm">Based on 231 reviews</Text>
-          </Stack>
-        </Paper>
-        <Paper>
-          <Stack spacing={1}>
-            <Flex align="center" gap="md">
-              <Text>5</Text>
-              <Progress value={87} sx={{width: 300}}/>
-            </Flex>
-            <Flex align="center" gap="md">
-              <Text>4</Text>
-              <Progress value={21} sx={{width: 300}}/>
-            </Flex>
-            <Flex align="center" gap="md">
-              <Text>3</Text>
-              <Progress value={5} sx={{width: 300}}/>
-            </Flex>
-            <Flex align="center" gap="md">
-              <Text>2</Text>
-              <Progress value={14} sx={{width: 300}}/>
-            </Flex>
-            <Flex align="center" gap="md">
-              <Text>1</Text>
-              <Progress value={4.3} sx={{width: 300}}/>
-            </Flex>
-          </Stack>
-        </Paper>
+      <Flex mb="xl" gap="lg" align={smallScreen ? "stretch" : "flex-end"} direction={smallScreen ? 'column' : 'row'}>
+        <Flex gap="md" align="center">
+          <Paper p="lg" shadow="md">
+            <Stack align="center" spacing="sm">
+              <Text size={smallScreen ? 24 : 32} weight={600}>8.2</Text>
+              <Rating defaultValue={4.2} onChange={handleSubmitReview}/>
+              <Text size="sm" align="center">Based on 231 reviews</Text>
+            </Stack>
+          </Paper>
+          <Paper>
+            <Stack spacing={1}>
+              <Flex align="center" gap="md">
+                <Text>5</Text>
+                <Progress value={87} sx={{width: smallScreen ? 180 : 300}}/>
+              </Flex>
+              <Flex align="center" gap="md">
+                <Text>4</Text>
+                <Progress value={21} sx={{width: smallScreen ? 180 : 300}}/>
+              </Flex>
+              <Flex align="center" gap="md">
+                <Text>3</Text>
+                <Progress value={5} sx={{width: smallScreen ? 180 : 300}}/>
+              </Flex>
+              <Flex align="center" gap="md">
+                <Text>2</Text>
+                <Progress value={14} sx={{width: smallScreen ? 180 : 300}}/>
+              </Flex>
+              <Flex align="center" gap="md">
+                <Text>1</Text>
+                <Progress value={4.3} sx={{width: smallScreen ? 180 : 300}}/>
+              </Flex>
+            </Stack>
+          </Paper>
+        </Flex>
+        <Box ml={smallScreen ? 0 : "auto"}>
+          <Button leftIcon={<MdOutlineCommentBank/>} component={Link} href="/review/create">Add your review</Button>
+        </Box>
       </Flex>
       <Stack spacing="xl">
         {Array.from({length: 5}).map((_, idx) => (
@@ -125,4 +142,3 @@ function RestaurantReviews() {
   );
 }
 
-export default RestaurantReviews;

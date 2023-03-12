@@ -8,6 +8,7 @@ import {
   Flex,
   Grid,
   Group,
+  LoadingOverlay,
   Overlay,
   Paper,
   Stack,
@@ -17,9 +18,10 @@ import {
   ThemeIcon,
   Title
 } from "@mantine/core";
-import React from "react";
+import React, {useState} from "react";
 import {MdOutlineHelpCenter, MdOutlineLocationOn, MdOutlineSend} from "react-icons/md";
 import {hasLength, isEmail, isNotEmpty, useForm} from "@mantine/form";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -87,6 +89,19 @@ export default function Contact() {
       email: isEmail('Invalid email'),
     },
   });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showNotification({
+        title: 'Form submitted',
+        message: 'Hey there, you are doing great! 🤥',
+      });
+    }, 3000);
+  }
+
 
   return (
     <Wrapper containNav={true}>
@@ -106,8 +121,10 @@ export default function Contact() {
           <Container pt={80} pb={120}>
             <Grid gutterXs="md" gutterMd="xl">
               <Grid.Col md={8}>
-                <Paper p="md" shadow="sm">
+                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                  <LoadingOverlay visible={loading}/>
                   <Box component="form" onSubmit={form.onSubmit(() => {
+                    console.log('')
                   })}>
                     <Title order={3} mb="md">Get in Touch</Title>
                     <Group grow>
@@ -134,7 +151,7 @@ export default function Contact() {
                       {...form.getInputProps('message')}
                     />
                     <Group position="right" mt="md">
-                      <Button type="submit" leftIcon={<MdOutlineSend size={14}/>}>Submit</Button>
+                      <Button type="submit" leftIcon={<MdOutlineSend size={14}/>} onClick={handleSubmit}>Submit</Button>
                     </Group>
                   </Box>
                 </Paper>

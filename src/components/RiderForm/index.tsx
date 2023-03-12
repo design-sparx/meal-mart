@@ -5,7 +5,7 @@ import {
   createStyles,
   FileInput,
   Group,
-  List,
+  List, LoadingOverlay,
   NativeSelect,
   Paper,
   Radio,
@@ -19,8 +19,9 @@ import {
   Title
 } from '@mantine/core';
 import React, {useState} from 'react';
-import {MdCheckCircle, MdHelpOutline, MdOutlineUploadFile} from 'react-icons/md';
+import {MdCheckCircle, MdChevronLeft, MdChevronRight, MdHelpOutline, MdOutlineUploadFile, MdSend} from 'react-icons/md';
 import {useMediaQuery} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -39,16 +40,29 @@ const data = [
 export default function RiderForm() {
   const {classes} = useStyles();
   const [active, setActive] = useState(0);
+  const [loading, setLoading] = useState(false);
   const smallScreen = useMediaQuery('(max-width: 426px)');
   const nextStep = () => setActive((current) => (current < 5 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showNotification({
+        title: 'Form submitted',
+        message: 'Hey there, you are doing great! 🤥',
+      });
+    }, 3000);
+  }
 
   return (
     <Container>
       <Stack>
         <Title size={smallScreen ? 28 : 48} align="center" mb="xl">Apply Now</Title>
-        <Paper p="lg" className={classes.form}>
-          <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
+        <Paper p="lg" className={classes.form} sx={{position: 'relative'}}>
+          <LoadingOverlay visible={loading}/>
+          <Stepper active={active} onStepClick={setActive} breakpoint="sm" size="sm" allowNextStepsSelect={false}>
             <Stepper.Step label="Telephone">
               <Stack>
                 <Alert icon={<MdHelpOutline size={16}/>} variant="filled">
@@ -154,7 +168,7 @@ export default function RiderForm() {
             </Stepper.Step>
             <Stepper.Completed>
               <Paper sx={{textAlign: 'center'}}>
-                <Stack align="center">
+                <Stack align="center" sx={{width: !smallScreen ? 500 : '100%'}} mx="auto">
                   <ThemeIcon variant="light" size={48}><MdCheckCircle size={32}/></ThemeIcon>
                   <Text>Your documents have been uploaded. Keep checking the app to ensure all your documents are
                     approved. Re-upload any rejected documents.</Text>
@@ -163,8 +177,9 @@ export default function RiderForm() {
             </Stepper.Completed>
           </Stepper>
           <Group position="center" mt="xl">
-            <Button variant="default" onClick={prevStep}>Back</Button>
-            {active <= 4 ? <Button onClick={nextStep}>Next step</Button> : <Button onClick={nextStep}>Submit</Button>}
+            <Button variant="default" onClick={prevStep} leftIcon={<MdChevronLeft/>}>Back</Button>
+            {active >= 3 ? <Button leftIcon={<MdSend size={14}/>} onClick={handleSubmit}>Submit</Button> :
+              <Button onClick={nextStep} leftIcon={<MdChevronRight/>}>Next step</Button>}
           </Group>
         </Paper>
       </Stack>

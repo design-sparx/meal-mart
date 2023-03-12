@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Wrapper from "@/layout";
 import {Box, Button, Center, Container, createStyles, Flex, Overlay, Stack, Text, Title} from "@mantine/core";
 import Faqs from "@/components/Faqs";
 import RiderFeatures from "@/components/RiderFeatures";
 import RiderForm from "@/components/RiderForm";
 import {useMediaQuery} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -58,6 +59,18 @@ const data = [
 export default function Create() {
   const {classes, theme} = useStyles();
   const smallScreen = useMediaQuery('(max-width: 426px)');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showNotification({
+        title: 'Form submitted',
+        message: 'Hey there, you are doing great! 🤥',
+      });
+    }, 3000);
+  }
 
   return (
     <Wrapper containNav={true}>

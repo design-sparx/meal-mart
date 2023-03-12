@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Wrapper from "@/layout";
 import {
   Box,
@@ -8,7 +8,7 @@ import {
   Flex,
   Grid,
   Image,
-  List,
+  List, LoadingOverlay,
   NativeSelect,
   Overlay,
   Paper,
@@ -22,7 +22,9 @@ import {
 import RestaurantFeatures from "@/components/RestaurantFeatures";
 import Testimonials from "@/components/Testimonials";
 import Faqs from "@/components/Faqs";
-import {useMediaQuery} from "@mantine/hooks";
+import {useMediaQuery, useScrollIntoView} from "@mantine/hooks";
+import {MdChevronRight, MdSend, MdStart} from "react-icons/md";
+import {showNotification} from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -81,6 +83,19 @@ export default function Create() {
   const {classes} = useStyles();
   const mediumScreen = useMediaQuery('(max-width: 769px)');
   const smallScreen = useMediaQuery('(max-width: 426px)');
+  const {scrollIntoView, targetRef} = useScrollIntoView<HTMLDivElement>({offset: 60});
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showNotification({
+        title: 'Form submitted',
+        message: 'Hey there, you are doing great! 🤥',
+      });
+    }, 3000)
+  }
 
   return (
     <Wrapper containNav={false}>
@@ -97,9 +112,10 @@ export default function Create() {
               <Text className={classes.heroText}>More bookings from diners around the corner</Text>
             </Grid.Col>
             <Grid.Col md={7} lg={4}>
-              <Paper p="md">
+              <Paper p="md" ref={targetRef} sx={{position: 'relative'}}>
                 <Title order={3} mb="md">Get started</Title>
                 <form action="">
+                  <LoadingOverlay visible={loading}/>
                   <Stack>
                     <TextInput label="Business name" placeholder="business name" withAsterisk/>
                     <Select label="Business address" placeholder="business address"
@@ -129,10 +145,9 @@ export default function Create() {
                       />}
                       rightSectionWidth={92}
                     />
-                    <Button>Submit</Button>
+                    <Button leftIcon={<MdSend size={18}/>} size="md" onClick={handleSubmit}>Submit</Button>
                     <Text size="sm">By clicking &apos;Submit&apos;, you agree to <a href="">Meal Mart General Terms and
-                      Conditions</a> and
-                      acknowledge you have read the <a href="">Privacy Policy.</a>
+                      Conditions</a> and acknowledge you have read the <a href="">Privacy Policy.</a>
                     </Text>
                   </Stack>
                 </form>
@@ -154,14 +169,20 @@ export default function Create() {
               src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80"
               alt="get started image"
               width={mediumScreen ? 400 : 500}
-              radius="md"/>
-            <Stack>
-              <Title size={smallScreen ? 28 : 42} align={smallScreen ? 'center' : 'left'}>Get started in just 3 steps</Title>
+              radius="sm"/>
+            <Stack align={smallScreen ? "stretch" : "flex-start"}>
+              <Title size={smallScreen ? 28 : 42} align={smallScreen ? 'center' : 'left'}>Get started in just 3
+                steps</Title>
               <List type="ordered" sx={{textAlign: mediumScreen ? 'center' : 'left'}}>
                 <List.Item>Tell us about your business</List.Item>
                 <List.Item>Upload you product catalog</List.Item>
                 <List.Item>Get access to your business dashboard</List.Item>
               </List>
+              <Button
+                leftIcon={<MdStart size={18}/>}
+                size="md"
+                onClick={() => scrollIntoView({ alignment: 'center' })}>
+                Get started</Button>
             </Stack>
           </Flex>
         </Box>

@@ -38,11 +38,11 @@ function MenuItem({title, description, price, imageUrl}: IProps) {
 
   return (
     <Paper className={classes.card}>
-      <Flex>
+      <Flex gap="sm">
         <Stack>
           <Title order={5} className={classes.title}>{title}</Title>
           <Text>{description}</Text>
-          <Text>{price}</Text>
+          <Text weight={500}>$ {price}</Text>
         </Stack>
         <Image src={imageUrl} alt="menu item" height={72} width={72} style={{borderRadius: theme.radius.sm}}/>
       </Flex>

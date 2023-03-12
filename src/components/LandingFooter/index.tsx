@@ -18,9 +18,12 @@ const useStyles = createStyles((theme) => ({
     maxWidth: 200,
 
     [theme.fn.smallerThan('sm')]: {
+      maxWidth: '100%',
+      width: '100%',
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between'
     },
   },
 
@@ -50,7 +53,8 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan('sm')]: {
       display: 'flex',
       justifyContent: 'space-between',
-      marginTop: theme.spacing.lg
+      marginTop: theme.spacing.lg,
+      gap: 48
     },
   },
 
