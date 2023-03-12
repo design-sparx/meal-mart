@@ -25,7 +25,7 @@ const useStyles = createStyles((theme: MantineTheme, _params, getRef) => ({
     position: 'relative',
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     padding: theme.spacing.md,
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.sm,
     border: `2px solid transparent`,
 
     [`&:hover`]: {
@@ -73,7 +73,7 @@ function FoodListItem({image, category, title, link, ratings}: IProps) {
     <Card className={classes.card}>
       <Card.Section>
         <a {...linkProps}>
-          <Image src={image} height={200} alt={`${title} image`} fit="cover" radius="md"/>
+          <Image src={image} height={200} alt={`${title} image`} fit="cover" radius="sm"/>
         </a>
       </Card.Section>
 

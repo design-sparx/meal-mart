@@ -20,7 +20,14 @@ import {
   TextInput,
   Title
 } from "@mantine/core";
-import {MdLocalOffer, MdMilitaryTech, MdOutlineFilterAlt, MdOutlineSearch, MdSyncAlt} from "react-icons/md";
+import {
+  MdLocalOffer,
+  MdLocationPin,
+  MdMilitaryTech,
+  MdOutlineFilterAlt,
+  MdOutlineSearch,
+  MdSyncAlt
+} from "react-icons/md";
 import {Carousel} from "@mantine/carousel";
 import CategoryCard from "@/components/Categories/item";
 import FoodList from "@/components/FoodList";
@@ -40,7 +47,7 @@ const useStyles = createStyles((theme) => ({
     background: "radial-gradient(circle, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .5) 40%), url(https://res.cloudinary.com/ddh7hfzso/image/upload/v1677323012/meal%20mart/delivery-image_gd2jpr.jpg)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.sm,
     marginTop: theme.spacing.lg,
     marginBottom: theme.spacing.lg,
   }
@@ -54,10 +61,10 @@ function Index(): JSX.Element {
     <Wrapper>
       <Box className={classes.search}>
         <Container fluid>
-          <Flex justify="space-between">
-            <Stack spacing={3}>
-              <Title order={4}>124 drive, Abc Rd</Title>
-              <Button leftIcon={<MdSyncAlt size={18}/>} variant="subtle">Change address</Button>
+          <Flex justify="space-between" align="center">
+            <Stack align="flex-start">
+              <Title order={4}>Location: 124 drive, Abc Rd</Title>
+              <Button leftIcon={<MdLocationPin size={18}/>} variant="outline">Change address</Button>
             </Stack>
             <TextInput
               icon={<MdOutlineSearch size={24}/>}
@@ -71,9 +78,9 @@ function Index(): JSX.Element {
           </Flex>
         </Container>
       </Box>
-      <Box my={30}>
+      <Box pt={40} pb={120}>
         <Container fluid px="lg">
-          <Grid>
+          <Grid gutterXs="md" gutterMd="xl" gutterXl={48}>
             <Grid.Col lg={3}>
               <Stack sx={{position: "sticky", top: 70}}>
                 <Accordion variant="separated" multiple={true} defaultValue={["sort"]}>
@@ -214,7 +221,7 @@ function Index(): JSX.Element {
                 <Box>
                   <FoodList/>
                 </Box>
-                <Center>
+                <Center mt="xl">
                   <Pagination total={10} radius="md" withEdges/>
                 </Center>
               </Stack>

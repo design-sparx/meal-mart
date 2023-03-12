@@ -23,7 +23,7 @@ import {MdCheckCircle, MdHelpOutline, MdOutlineUploadFile} from 'react-icons/md'
 
 const useStyles = createStyles((theme) => ({
   form: {
-    background: theme.colors.gray[0],
+    // background: theme.colors.gray[0],
     boxShadow: theme.shadows.sm
   }
 }))
@@ -44,8 +44,8 @@ export default function RiderForm() {
   return (
     <Container>
       <Stack>
-        <Title size={48} align="center" mb="md">Apply Now</Title>
-        <Paper p="lg" withBorder className={classes.form}>
+        <Title size={48} align="center" mb="xl">Apply Now</Title>
+        <Paper p="lg" className={classes.form}>
           <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
             <Stepper.Step label="Telephone">
               <Stack>
@@ -95,14 +95,13 @@ export default function RiderForm() {
                 <Radio.Group
                   name="gender"
                   label="Gender"
-                  description="This is anonymous"
                   withAsterisk
                 >
                   <Radio value="male" label="Male"/>
                   <Radio value="female" label="Female"/>
                   <Radio value="non-binary" label="Non binary"/>
                 </Radio.Group>
-                <Select label="City" placeholder="city" data={[{value: '', label: '---'},]}/>
+                <Select label="City" placeholder="city" withAsterisk data={[{value: '', label: '---'},]}/>
                 <Radio.Group
                   name="vehicle-type"
                   label="What's your vehicle type?"

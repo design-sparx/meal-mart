@@ -57,15 +57,12 @@ const useStyles = createStyles((theme) => ({
 
   card: {
     textAlign: 'center',
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
-    }`,
-    boxShadow: theme.shadows.sm,
+    boxShadow: theme.shadows.md,
 
     '&:hover': {
       transform: 'scale(1.03)',
       transition: 'all ease 200ms',
-      boxShadow: theme.shadows.lg,
+      boxShadow: theme.shadows.xl,
     },
   },
 
@@ -91,17 +88,13 @@ function Instructions() {
       <Text size="xl" weight={500} className={classes.cardTitle} mt="md">
         {++idx}. {_.title}
       </Text>
-      <Text size="sm" color="dimmed" mt="sm">
-        {_.description}
-      </Text>
     </Card>
   ));
+
   return (
-    <Container fluid my={120}>
+    <Container pt={80} pb={120}>
       <Stack align="center">
-        <Title order={2} className={classes.title} align="center">
-          How It Works
-        </Title>
+        <Title className={classes.title} align="center">How It Works</Title>
         <Text color="dimmed" className={classes.description} align="center" mb="xl">
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </Text>

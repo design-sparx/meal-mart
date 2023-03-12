@@ -10,6 +10,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
   card: {
     boxShadow: theme.shadows.sm,
+    // backgroundColor: theme.colors.gray[0],
 
     '&:hover': {
       transform: 'scale(1.03)',
@@ -44,15 +45,15 @@ function RestaurantCard({avgPrice, ratings, type, imageUrl, link, title, locatio
           <Flex justify="space-between" align="center">
             <Text size="sm" transform="capitalize">{type}</Text>
             <Group position="right" spacing="xs">
-              <ThemeIcon variant="light"><MdOutlineStar/></ThemeIcon>
+              <ThemeIcon variant="outline"><MdOutlineStar/></ThemeIcon>
               <Text size="sm">{ratings}</Text>
             </Group>
           </Flex>
           <Text size="lg" weight={500} className={classes.title}>{title}</Text>
           <Text>{location}</Text>
           <Flex justify="space-between" align="center">
-            <Badge size="lg" radius="sm" variant="light"><MdOutlineLocalFireDepartment/> -30%</Badge>
-            <Text size="sm">Average price ${avgPrice}</Text>
+            <Badge size="lg" radius="sm" variant="outline"><MdOutlineLocalFireDepartment/> -30%</Badge>
+            <Text size="sm" ml="md">Avg. price ${avgPrice}</Text>
           </Flex>
         </Stack>
       </Flex>

@@ -28,7 +28,7 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: 'center',
   },
   heroContainer: {
-    height: 500,
+    height: 650,
     paddingBottom: theme.spacing.xl,
     zIndex: 1,
     position: 'relative',
@@ -38,8 +38,13 @@ const useStyles = createStyles((theme) => ({
       paddingBottom: theme.spacing.xl * 3,
     },
   },
+  heroTitle: {
+    color: theme.white,
+    fontSize: 48
+  },
   heroText: {
-    color: theme.white
+    color: theme.white,
+    fontSize: 24,
   },
   control: {
     textTransform: 'capitalize',
@@ -82,8 +87,16 @@ const useStyles = createStyles((theme) => ({
     },
   },
   linkControl: {
-    borderBottom: `1px solid ${theme.colors.gray[3]}`,
-    padding: theme.spacing.md
+    boxShadow: theme.shadows.sm,
+    padding: theme.spacing.md,
+    borderRadius: theme.radius.sm,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+
+    '&:hover': {
+      transform: 'scale(1.05)',
+      transition: 'all ease 200ms',
+      fontWeight: 700
+    }
   }
 }));
 
@@ -91,7 +104,7 @@ export default function Help() {
   const {classes, theme} = useStyles();
 
   return (
-    <Wrapper>
+    <Wrapper containNav={true}>
       <Stack>
         <Box className={classes.hero}>
           <Overlay
@@ -102,25 +115,25 @@ export default function Help() {
           <Container fluid className={classes.heroContainer}>
             <Center sx={{height: '100%'}}>
               <Stack align="center">
-                <Title className={classes.heroText}>Help and support</Title>
-                <Text className={classes.heroText}>Search questions or useful articles</Text>
+                <Title className={classes.heroTitle}>Help and support</Title>
+                <Text className={classes.heroText} mb="xl">Search questions or useful articles</Text>
                 <TextInput
                   className={classes.control}
                   icon={<MdOutlineSearch size={24}/>}
                   radius="sm"
-                  size="xl"
-                  rightSection={<Button size="lg">Search</Button>}
+                  size="lg"
+                  rightSection={<Button size="md" variant="white">Search</Button>}
                   placeholder="what are you looking for?"
-                  rightSectionWidth={130}/>
+                  rightSectionWidth={110}/>
               </Stack>
             </Center>
           </Container>
         </Box>
-        <Box>
-          <Title align="center">Select topic</Title>
-          <Text className={classes.subtitle} align="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          <SimpleGrid cols={3}>
+        <Container pt={80} pb={120}>
+          <Title align="center" size={48} mb="xl">Select topic</Title>
+          <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+          <SimpleGrid cols={4}>
             {FaqsData.categories.map((_, idx) => (
               <UnstyledButton
                 style={{backgroundImage: `url(${_.image})`}}
@@ -134,28 +147,30 @@ export default function Help() {
               </UnstyledButton>
             ))}
           </SimpleGrid>
-        </Box>
-        <Box>
-          <Title align="center">Relevant links</Title>
-          <Text className={classes.subtitle} align="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          <SimpleGrid
-            cols={3}
-            spacing="lg"
-            breakpoints={[
-              {maxWidth: 'md', cols: 3, spacing: 'md'},
-              {maxWidth: 'sm', cols: 2, spacing: 'sm'},
-              {maxWidth: 'xs', cols: 1, spacing: 'sm'},
-            ]}>
-            {Array.from({length: 10}).map((_, idx) => (
-              <UnstyledButton key={`help-article-${idx}`} className={classes.linkControl}>
-                <Flex gap="md">
-                  <ThemeIcon variant="default" size="md"><MdOutlineBook/></ThemeIcon>
-                  <Text>A pellentesque sit amet porttitor {idx}</Text>
-                </Flex>
-              </UnstyledButton>
-            ))}
-          </SimpleGrid>
+        </Container>
+        <Box sx={{backgroundColor: theme.colors.gray[0]}}>
+          <Container pt={80} pb={120}>
+            <Title align="center" size={48} mb="xl">Relevant links</Title>
+            <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+            <SimpleGrid
+              cols={3}
+              spacing="lg"
+              breakpoints={[
+                {maxWidth: 'md', cols: 3, spacing: 'md'},
+                {maxWidth: 'sm', cols: 2, spacing: 'sm'},
+                {maxWidth: 'xs', cols: 1, spacing: 'sm'},
+              ]}>
+              {Array.from({length: 10}).map((_, idx) => (
+                <UnstyledButton key={`help-article-${idx}`} className={classes.linkControl}>
+                  <Flex gap="md">
+                    <ThemeIcon variant="default" size="md"><MdOutlineBook/></ThemeIcon>
+                    <Text>A pellentesque sit amet porttitor {idx}</Text>
+                  </Flex>
+                </UnstyledButton>
+              ))}
+            </SimpleGrid>
+          </Container>
         </Box>
       </Stack>
     </Wrapper>

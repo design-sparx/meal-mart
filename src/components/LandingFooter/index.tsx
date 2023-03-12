@@ -2,15 +2,13 @@ import {ActionIcon, Container, createStyles, Flex, Group, Text, ThemeIcon, Title
 import LogoImg from "@/assets/logo/logo-color.png";
 import Image from "next/image";
 import {FaFacebook, FaGithub, FaInstagram, FaLinkedinIn, FaTwitter} from "react-icons/fa";
-import {MdLocationPin, MdMailOutline, MdOutlinePhone} from "react-icons/md";
 import LanguagePicker from "@/components/LanguagePicker";
 
 const useStyles = createStyles((theme) => ({
   footer: {
-    marginTop: 120,
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1],
     borderTop: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
@@ -60,7 +58,7 @@ const useStyles = createStyles((theme) => ({
 
   link: {
     display: 'block',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[8],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
@@ -137,7 +135,7 @@ function Footer({data}: FooterLinksProps) {
         <div className={classes.logo}>
           <Flex align="center" gap="sm" mb="md" className={classes.title}>
             <Image src={LogoImg} alt="Meal mart logo" height={48}/>
-            <Title order={4}>Food delivery</Title>
+            <Title order={4}>Meal Mart</Title>
           </Flex>
           <LanguagePicker/>
         </div>

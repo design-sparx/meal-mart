@@ -8,7 +8,4 @@ export const mealMartTheme: MantineThemeOverride = {
   },
   primaryColor: 'orange',
   primaryShade: 9,
-  globalStyles: (theme) => ({
-
-  })
 }

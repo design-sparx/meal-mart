@@ -32,9 +32,9 @@ const useStyles = createStyles((theme, {opened}: { opened: boolean }) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `.5rem 1rem`,
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.sm,
     border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2]
+      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3]
     }`,
     transition: 'background-color 150ms ease',
     backgroundColor:
@@ -78,7 +78,7 @@ export default function LanguagePicker() {
     <Menu
       onOpen={() => setOpened(true)}
       onClose={() => setOpened(false)}
-      radius="md"
+      radius="sm"
       width="target"
       withinPortal
     >

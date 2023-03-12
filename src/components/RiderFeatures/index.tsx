@@ -54,9 +54,9 @@ const useStyles = createStyles((theme) => ({
 
   card: {
     textAlign: 'center',
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
-    }`,
+    // border: `1px solid ${
+    //   theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
+    // }`,
     boxShadow: theme.shadows.sm,
 
     '&:hover': {
@@ -84,8 +84,8 @@ export default function RiderFeatures() {
   const {classes} = useStyles();
 
   const features = mockdata.map((_, idx) => (
-    <Card key={_.title} shadow="md" radius="md" className={classes.card} p="xl">
-      <Image src={_.image} alt={''} height={200} fit="contain"/>
+    <Card key={_.title} shadow="md" radius="md" className={classes.card} p="lg">
+      <Image src={_.image} alt={''} height={150} fit="contain"/>
       <Text size="xl" weight={500} className={classes.cardTitle} mt="md">
         {++idx}. {_.title}
       </Text>

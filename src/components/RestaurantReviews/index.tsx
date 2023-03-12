@@ -22,8 +22,8 @@ function RestaurantReviews() {
 
   return (
     <Box>
-      <Title order={3} mb="xl">Ratings & Reviews</Title>
-      <Flex mb="xl" gap="lg">
+      <Title size={48} mb="xl" align="center">Ratings & Reviews</Title>
+      <Flex mb="xl" gap="lg" align="center">
         <Paper withBorder p="lg">
           <Stack align="center" spacing="sm">
             <Text size={32} weight={600}>8.2</Text>
@@ -56,9 +56,9 @@ function RestaurantReviews() {
           </Stack>
         </Paper>
       </Flex>
-      <Stack>
+      <Stack spacing="xl">
         {Array.from({length: 5}).map((_, idx) => (
-          <Paper key={`review-item-${idx}`} withBorder p="md">
+          <Paper key={`review-item-${idx}`} p="md" shadow="md">
             <Flex justify="space-between" mb="md">
               <Group>
                 <Image

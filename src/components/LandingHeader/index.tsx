@@ -29,7 +29,7 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
     backgroundColor: scrollPosition > 5 ? 'white' : 'transparent',
     borderBottom: 'none',
     transition: 'all ease 150ms',
-    boxShadow: scrollPosition > 5 ? theme.shadows.md : 'none',
+    boxShadow: scrollPosition > 5 ? theme.shadows.sm : 'none',
   },
 
   inner: {
@@ -51,6 +51,10 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
     display: 'flex',
     alignItems: 'center',
     textDecoration: 'none'
+  },
+
+  imgBrand: {
+    borderRadius: theme.radius.sm,
   },
 
   title: {
@@ -90,7 +94,7 @@ const useStyles = createStyles((theme: MantineTheme, {scrollPosition}: any) => (
 
     '&:hover': {
       backgroundColor: scrollPosition < 5 ? theme.colors.gray[7] : theme.colors.gray[1],
-      // color: scrollPosition < 5 ? theme.primaryColor : theme.primaryColor,
+      color: scrollPosition < 5 ? theme.white : theme.black,
       transition: 'all ease 200ms'
     },
   },
@@ -166,7 +170,7 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
   });
 
   const secondaryItems = userLinks.map((item) => (
-    <Button component={Link} href={item.link} key={item.label} className={classes.link}>
+    <Button component={Link} href={`/${item.link}`} key={item.label} className={classes.link}>
       {item.label}
     </Button>
   ));
@@ -177,8 +181,8 @@ function LandingHeader({mainLinks, userLinks, containNav}: IProps) {
         <Container fluid className={classes.inner} px={16 * 3}>
           <Box className={classes.navbarBrand} component={Link} href="/">
             <Image src={containNav && scrollPosition > 5 ? LogoImgColor : LogoImgWhite} alt="Meal mart logo"
-                   height={48}/>
-            <Text className={classes.title} ml="sm">Food delivery</Text>
+                   height={48} className={classes.imgBrand}/>
+            <Text className={classes.title} ml="sm">Meal Mart</Text>
           </Box>
           <Group spacing={1}>{mainItems}</Group>
           <Group spacing={2}>{secondaryItems}</Group>

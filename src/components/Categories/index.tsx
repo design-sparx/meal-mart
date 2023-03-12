@@ -34,13 +34,13 @@ function Categories() {
   const {classes} = useStyles();
 
   return (
-    <Container fluid my={120}>
+    <Container pt={80} pb={120}>
       <Stack>
         <Title className={classes.title} align="center">Popular Categories</Title>
         <Text className={classes.description} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
         <Carousel
-          slideSize="23%"
+          slideSize="36%"
           slideGap="md"
           loop
           align="start"

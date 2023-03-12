@@ -8,21 +8,29 @@ import {
   Divider,
   Flex,
   Grid,
+  Image,
+  Modal,
   Overlay,
   Stack,
   Text,
   Title
 } from "@mantine/core";
-import React, {useRef} from "react";
-import {MdOutlineFavorite, MdOutlineForum, MdOutlinePhotoSizeSelectActual, MdOutlineStar} from "react-icons/md";
+import React, {useRef, useState} from "react";
+import {
+  MdLocationPin,
+  MdOutlineFavoriteBorder,
+  MdOutlineForum,
+  MdOutlinePhotoSizeSelectActual,
+  MdOutlineStar
+} from "react-icons/md";
 import RestaurantMenu from "@/components/RestaurantMenu";
 import OrderSummary from "@/components/OrderSummary";
 import RestaurantReviews from "@/components/RestaurantReviews";
 import {scrollToView} from "@/utils/scrollToView";
+import {Carousel} from "@mantine/carousel";
 
 const useStyles = createStyles((theme) => ({
-  wrapper: {
-  },
+  wrapper: {},
   hero: {
     position: 'relative',
     backgroundImage:
@@ -41,6 +49,8 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
     position: 'relative',
     overflow: 'hidden',
+    paddingLeft: theme.spacing.xl,
+    paddingRight: theme.spacing.xl,
 
     [theme.fn.smallerThan('sm')]: {
       height: 500,
@@ -60,12 +70,10 @@ const useStyles = createStyles((theme) => ({
     padding: theme.spacing.md,
     borderBottom: `1px solid ${theme.colors.gray[3]}`,
     borderTop: `1px solid ${theme.colors.gray[3]}`,
-    zIndex: 1000,
+    zIndex: 2,
   },
   ordersWrapper: {
-    position: "sticky",
-    top: 0,
-    paddingTop: theme.spacing.lg
+    paddingTop: theme.spacing.xl
   },
   menuWrapper: {
     backgroundColor: theme.colors.gray[0],
@@ -74,6 +82,14 @@ const useStyles = createStyles((theme) => ({
   }
 }))
 
+const images = [
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1592861956120-e524fc739696?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+];
+
 export default function Home() {
   const {classes} = useStyles();
   const starterRef = useRef(null);
@@ -81,6 +97,21 @@ export default function Home() {
   const dessertRef = useRef(null);
   const drinksRef = useRef(null);
   const reviewsRef = useRef(null);
+  const [openGallery, setOpenGallery] = useState(false);
+
+  const handleOpenGallery = (): void => {
+    setOpenGallery(true);
+  }
+
+  const handleCloseGallery = (): void => {
+    setOpenGallery(false);
+  }
+
+  const slides = images.map((url) => (
+    <Carousel.Slide key={url}>
+      <Image src={url} alt="restaurant image"/>
+    </Carousel.Slide>
+  ));
 
   return (
     <Wrapper containNav={true}>
@@ -91,70 +122,110 @@ export default function Home() {
           zIndex={0}
         />
         <Container fluid className={classes.heroContainer}>
-          <Flex mb="lg" gap="xs" align="center">
-            <Badge size="xl" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
-            <Text className={classes.heroText}>310 reviews</Text>
-          </Flex>
-          <Flex align="center" justify="space-between" sx={{width: '100%'}}>
+          <Flex align="flex-end" justify="space-between" sx={{width: '100%'}} mb="md">
             <Stack>
               <Title className={classes.heroText}>Pinocchio&apos;s Servings</Title>
               <Flex gap="xs" align="center">
-                <Text className={classes.heroText}>Mexican</Text>
+                <Text className={classes.heroText}>Cuisine: Mexican</Text>
                 <Text className={classes.heroText}>-</Text>
-                <Text className={classes.heroText}>8 spo zas St, 499</Text>
+                <Text className={classes.heroText}>Location: 8 spo zas St, 499</Text>
                 <Text className={classes.heroText}>-</Text>
-                <Button className={classes.control} variant="white">Get directions</Button>
+                <Button
+                  className={classes.control}
+                  leftIcon={<MdLocationPin size={14}/>}
+                  variant="white">
+                  Get directions
+                </Button>
               </Flex>
             </Stack>
             <Flex gap="xs">
-              <Button leftIcon={<MdOutlinePhotoSizeSelectActual/>} className={classes.control} variant="white">view
-                photos</Button>
-              <Button leftIcon={<MdOutlineFavorite/>} className={classes.control} variant="white">wishlist</Button>
+              <Button
+                leftIcon={<MdOutlinePhotoSizeSelectActual/>}
+                className={classes.control}
+                variant="white"
+                onClick={handleOpenGallery}>
+                view photos
+              </Button>
+              <Button
+                leftIcon={<MdOutlineFavoriteBorder/>}
+                className={classes.control}
+                variant="white">
+                add to favorites
+              </Button>
             </Flex>
+          </Flex>
+          <Flex gap="xs" align="center">
+            <Badge size="xl" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
+            <Text className={classes.heroText}>310 reviews</Text>
           </Flex>
         </Container>
       </Box>
-      <Box component="div">
-        <Flex gap="sm" className={classes.stickyTab}>
-          <Button variant="subtle" onClick={() => scrollToView(starterRef)}>Starters</Button>
-          <Button variant="subtle" onClick={() => scrollToView(mainRef)}>Main Course</Button>
-          <Button variant="subtle" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
-          <Button variant="subtle" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
-          <Divider orientation="vertical"/>
-          <Button variant="light" leftIcon={<MdOutlineForum size={18}/>}
-                  onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
-        </Flex>
-      </Box>
+      <Flex gap="sm" className={classes.stickyTab}>
+        <Button variant="subtle" onClick={() => scrollToView(starterRef)}>Starters</Button>
+        <Button variant="subtle" onClick={() => scrollToView(mainRef)}>Main Course</Button>
+        <Button variant="subtle" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
+        <Button variant="subtle" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
+        <Divider orientation="vertical"/>
+        <Button
+          variant="light"
+          leftIcon={<MdOutlineForum size={18}/>}
+          onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
+      </Flex>
       <Box sx={{overflow: 'hidden'}}>
-        <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl">
+        <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl" gutterLg={48}>
           <Grid.Col md={12} lg={8}>
             <Box>
-              <div ref={starterRef}>
+              <div ref={starterRef} style={{paddingTop: 48, paddingBottom: 48}}>
                 <RestaurantMenu title="Starters"/>
               </div>
-              <div ref={mainRef}>
+              <div ref={mainRef} style={{paddingTop: 48, paddingBottom: 48}}>
                 <RestaurantMenu title="Main courses"/>
               </div>
-              <div ref={dessertRef}>
+              <div ref={dessertRef} style={{paddingTop: 48, paddingBottom: 48}}>
                 <RestaurantMenu title="Desserts"/>
               </div>
-              <div ref={drinksRef}>
+              <div ref={drinksRef} style={{paddingTop: 48, paddingBottom: 48}}>
                 <RestaurantMenu title="Drinks"/>
               </div>
             </Box>
           </Grid.Col>
           <Grid.Col md={12} lg={4}>
-            <div className={classes.ordersWrapper}>
+            <Box component="div" className={classes.ordersWrapper}>
               <OrderSummary/>
-            </div>
+            </Box>
           </Grid.Col>
         </Grid>
       </Box>
-      <Container fluid mt={60} px={30}>
+      <Container pt={80} pb={120}>
         <div ref={reviewsRef}>
           <RestaurantReviews/>
         </div>
       </Container>
+      <Modal
+        opened={openGallery}
+        onClose={handleCloseGallery}
+        centered
+        title="Restaurant gallery album"
+        size="xl"
+      >
+        <Carousel
+          mx="auto"
+          withIndicators
+          loop
+          styles={{
+            indicator: {
+              width: 12,
+              height: 4,
+              transition: 'width 250ms ease',
+
+              '&[data-active]': {
+                width: 40,
+              },
+            },
+          }}>
+          {slides}
+        </Carousel>
+      </Modal>
     </Wrapper>
   )
 }

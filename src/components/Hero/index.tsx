@@ -1,6 +1,7 @@
 import {Anchor, Button, Container, createStyles, Group, Overlay, Text, TextInput, Title} from '@mantine/core';
 import {MdOutlineSearch} from "react-icons/md";
 import React from "react";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -46,7 +47,7 @@ const useStyles = createStyles((theme) => ({
 
   description: {
     color: theme.white,
-    fontSize: 32,
+    fontSize: 24,
 
     [theme.fn.smallerThan('sm')]: {
       maxWidth: '100%',
@@ -91,7 +92,7 @@ function Hero() {
           icon={<MdOutlineSearch size={24}/>}
           size="xl"
           rightSection={
-            <Button size="md" variant="white">Search</Button>
+            <Button size="md" variant="white" component={Link} href="feed">Search</Button>
           }
           placeholder="what are you looking for..."
           rightSectionWidth={110}

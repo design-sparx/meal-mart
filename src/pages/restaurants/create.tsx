@@ -37,6 +37,8 @@ const useStyles = createStyles((theme) => ({
     position: 'relative',
     paddingTop: theme.spacing.lg,
     paddingBottom: theme.spacing.lg,
+    paddingLeft: theme.spacing.xl,
+    paddingRight: theme.spacing.xl,
 
     [theme.fn.smallerThan('sm')]: {
       height: 500,
@@ -124,15 +126,15 @@ export default function Create() {
           </Grid>
         </Container>
       </Container>
-      <Container fluid>
-        <Container fluid my={120}>
+      <Container>
+        <Container fluid pt={80} pb={120}>
           <RestaurantFeatures/>
         </Container>
-        <Container fluid my={120}>
+        <Container fluid pt={80} pb={120}>
           <Testimonials/>
         </Container>
-        <Container fluid my={120}>
-          <Flex justify="space-evenly" align="center">
+        <Container fluid pt={80} pb={120}>
+          <Flex justify="space-evenly" align="center" gap="md">
             <Image
               src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80"
               alt="get started image" width={500}
@@ -147,7 +149,7 @@ export default function Create() {
             </Stack>
           </Flex>
         </Container>
-        <Container fluid mt={120}>
+        <Container fluid pt={80} pb={120}>
           <Faqs/>
         </Container>
       </Container>

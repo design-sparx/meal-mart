@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: 'center',
   },
   container: {
-    height: 500,
+    height: 650,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -93,7 +93,7 @@ export default function Contact() {
   });
 
   return (
-    <Wrapper>
+    <Wrapper containNav={true}>
       <Box className={classes.wrapper}>
         <Box className={classes.hero}>
           <Overlay
@@ -106,72 +106,75 @@ export default function Contact() {
             <Text className={classes.description} size="xl" mt="xl">The best of restaurant experience.</Text>
           </Container>
         </Box>
-        <Container my={60}>
-          <Grid gutterXs="md" gutterMd="xl">
-            <Grid.Col md={6} lg={8}>
-              <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
-                <Box component="form" onSubmit={form.onSubmit(() => {})}>
-                  <Title order={3} mb="md">Get in Touch</Title>
-                  <Group grow>
-                    <TextInput label="Name" placeholder="Your name" withAsterisk {...form.getInputProps('name')} />
+        <Box sx={{backgroundColor: theme.colors.gray[0]}}>
+          <Container pt={80} pb={120}>
+            <Grid gutterXs="md" gutterMd="xl">
+              <Grid.Col md={6} lg={8}>
+                <Paper p="md" shadow="sm">
+                  <Box component="form" onSubmit={form.onSubmit(() => {
+                  })}>
+                    <Title order={3} mb="md">Get in Touch</Title>
+                    <Group grow>
+                      <TextInput label="Name" placeholder="Your name" withAsterisk {...form.getInputProps('name')} />
+                      <TextInput
+                        label="Email"
+                        placeholder="Your email"
+                        withAsterisk
+                        {...form.getInputProps('email')}
+                      />
+                    </Group>
                     <TextInput
-                      label="Email"
-                      placeholder="Your email"
+                      label="Subject"
+                      placeholder="Your subject"
                       withAsterisk
-                      {...form.getInputProps('email')}
+                      mt="md"
+                      {...form.getInputProps('subject')}
                     />
-                  </Group>
-                  <TextInput
-                    label="Subject"
-                    placeholder="Your subject"
-                    withAsterisk
-                    mt="md"
-                    {...form.getInputProps('subject')}
-                  />
-                  <Textarea
-                    label="Message"
-                    placeholder="Your message"
-                    withAsterisk
-                    mt="md"
-                    {...form.getInputProps('message')}
-                  />
-                  <Group position="right" mt="md">
-                    <Button type="submit">Submit</Button>
-                  </Group>
-                </Box>
-              </Paper>
-            </Grid.Col>
-            <Grid.Col md={6} lg={4}>
-              <Stack>
-                <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
-                  <Stack spacing="xs">
-                    <Flex gap="sm">
-                      <ThemeIcon>
-                        <MdOutlineHelpCenter/>
-                      </ThemeIcon>
-                      <Text size="lg" weight={500}>Help Center</Text>
-                    </Flex>
-                    <Anchor<'a'> size="sm">+254 706 094 433</Anchor>
-                    <Anchor<'a'> size="sm">help@fooddelivery.com</Anchor>
-                    <Text size="sm">Open on: Monday - Friday (9am - 6pm)</Text>
-                  </Stack>
+                    <Textarea
+                      label="Message"
+                      placeholder="Your message"
+                      withAsterisk
+                      mt="md"
+                      {...form.getInputProps('message')}
+                    />
+                    <Group position="right" mt="md">
+                      <Button type="submit">Submit</Button>
+                    </Group>
+                  </Box>
                 </Paper>
-                <Paper withBorder p="md" shadow="sm" sx={{backgroundColor: theme.colors.gray[0]}}>
-                  <Stack spacing="xs">
-                    <Flex gap="sm">
-                      <ThemeIcon>
-                        <MdOutlineLocationOn/>
-                      </ThemeIcon>
-                      <Text size="lg" weight={500}>Address</Text>
-                    </Flex>
-                    <Text size="sm">10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
-                    <Text size="sm">Open on: Monday - Saturday (9am - 6pm)</Text>
-                  </Stack>
-                </Paper>
-              </Stack>
-            </Grid.Col>
-          </Grid>
-        </Container>
+              </Grid.Col>
+              <Grid.Col md={6} lg={4}>
+                <Stack>
+                  <Paper p="md" shadow="sm">
+                    <Stack spacing="xs">
+                      <Flex gap="sm">
+                        <ThemeIcon>
+                          <MdOutlineHelpCenter/>
+                        </ThemeIcon>
+                        <Text size="lg" weight={500}>Help Center</Text>
+                      </Flex>
+                      <Anchor<'a'> size="sm">+254 706 094 433</Anchor>
+                      <Anchor<'a'> size="sm">help@fooddelivery.com</Anchor>
+                      <Text size="sm">Open on: Monday - Friday (9am - 6pm)</Text>
+                    </Stack>
+                  </Paper>
+                  <Paper p="md" shadow="sm">
+                    <Stack spacing="xs">
+                      <Flex gap="sm">
+                        <ThemeIcon>
+                          <MdOutlineLocationOn/>
+                        </ThemeIcon>
+                        <Text size="lg" weight={500}>Address</Text>
+                      </Flex>
+                      <Text size="sm">10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
+                      <Text size="sm">Open on: Monday - Saturday (9am - 6pm)</Text>
+                    </Stack>
+                  </Paper>
+                </Stack>
+              </Grid.Col>
+            </Grid>
+          </Container>
+        </Box>
       </Box>
     </Wrapper>
   );

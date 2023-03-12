@@ -17,8 +17,8 @@ const data = [
 
 function RestaurantMenu({title}: IProps) {
   return (
-    <Box my={30}>
-      <Title order={4} mb="md">{title}</Title>
+    <Box>
+      <Title order={2} mb="md">{title}</Title>
       <SimpleGrid
         cols={2}
         spacing="lg"

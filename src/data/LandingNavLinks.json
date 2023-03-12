@@ -5,12 +5,8 @@
       "label": "help"
     },
     {
-      "link": "#",
-      "label": "wishlist"
-    },
-    {
-      "link": "#",
-      "label": "cart"
+      "link": "contact",
+      "label": "contact"
     },
     {
       "link": "#",
@@ -47,10 +43,6 @@
     {
       "link": "review/create",
       "label": "write review"
-    },
-    {
-      "link": "contact",
-      "label": "contact"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActionIcon,
   Button,
   Card,
   createStyles,
@@ -11,7 +12,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  ThemeIcon,
   Title,
   UnstyledButton
 } from "@mantine/core";
@@ -29,28 +29,28 @@ const useStyles = createStyles((theme: MantineTheme) => ({
     color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 
     '&:hover': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+      // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
     },
   },
 }));
 
 function OrderSummary() {
-  const {classes, theme} = useStyles();
+  const {classes} = useStyles();
 
   return (
-    <Paper className={classes.card} withBorder shadow="sm">
+    <Paper className={classes.card} shadow="sm">
       <Card.Section mb="md">
         <Title order={4}>Order summary</Title>
       </Card.Section>
       <Card.Section>
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           {Array.from({length: 5}).map((_, idx) => (
             <UnstyledButton key={`order-item-${idx}`} className={classes.item}>
               <Flex justify="space-between">
                 <Flex gap="sm">
-                  <ThemeIcon variant="light" color="pink">
+                  <ActionIcon variant="light" color="gray" title="remove order item">
                     <MdRemoveCircle/>
-                  </ThemeIcon>
+                  </ActionIcon>
                   <Text>1x Crispy Cake</Text>
                 </Flex>
                 <Text>$11</Text>
@@ -89,7 +89,7 @@ function OrderSummary() {
         </SimpleGrid>
       </Card.Section>
       <Card.Section>
-        <Button fullWidth leftIcon={<MdOutlineSend/>}>Place order</Button>
+        <Button fullWidth leftIcon={<MdOutlineSend/>} size="md">Place order</Button>
         <Text align="center" size="sm" mt="sm" italic>Proceed to checkout</Text>
       </Card.Section>
     </Paper>

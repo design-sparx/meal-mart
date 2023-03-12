@@ -14,7 +14,7 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: 'center',
   },
   heroContainer: {
-    height: 500,
+    height: 650,
     zIndex: 1,
     position: 'relative',
     paddingTop: theme.spacing.lg,
@@ -45,10 +45,10 @@ const data = [
 ];
 
 export default function Create() {
-  const {classes} = useStyles();
+  const {classes, theme} = useStyles();
 
   return (
-    <Wrapper containNav={false}>
+    <Wrapper containNav={true}>
       <Box className={classes.hero}>
         <Overlay
           gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
@@ -57,27 +57,25 @@ export default function Create() {
         />
         <Container fluid className={classes.heroContainer}>
           <Center sx={{height: '100%'}}>
-            <Stack>
-              <Title className={classes.heroTitle}>Deliver with Uber Eats</Title>
+            <Stack align="center">
+              <Title className={classes.heroTitle}>Deliver with Meal Mart</Title>
               <Text className={classes.heroText} mb="md">Flexible work, competitive fees</Text>
               <Flex gap="md">
-                <Button size="lg">Apply now to deliver</Button>
-                <Button size="lg">Already have an account? Sign in</Button>
+                <Button size="md">Apply now to deliver</Button>
+                <Button size="md" variant="white">Already have an account? Sign in</Button>
               </Flex>
             </Stack>
           </Center>
         </Container>
       </Box>
-      <Container fluid>
-        <Box my={60}>
-          <RiderFeatures/>
-        </Box>
-        <Box my={60}>
-          <RiderForm/>
-        </Box>
-        <Box mt={60}>
-          <Faqs/>
-        </Box>
+      <Container pt={80} pb={120}>
+        <RiderFeatures/>
+      </Container>
+      <Box pt={80} pb={120} sx={{backgroundColor: theme.colors.gray[0]}}>
+        <RiderForm/>
+      </Box>
+      <Container pt={80}>
+        <Faqs/>
       </Container>
     </Wrapper>
   );
