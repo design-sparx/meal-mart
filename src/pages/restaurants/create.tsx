@@ -37,11 +37,10 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: 'center',
   },
   heroContainer: {
-    height: 650,
     zIndex: 1,
     position: 'relative',
-    paddingTop: theme.spacing.lg,
-    paddingBottom: theme.spacing.lg,
+    paddingTop: theme.spacing.xl * 5,
+    paddingBottom: theme.spacing.xl * 2,
     paddingLeft: theme.spacing.xl,
     paddingRight: theme.spacing.xl,
 
