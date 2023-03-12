@@ -104,7 +104,7 @@ export default function Create() {
       <Head>
         <title>Meal Mart | Create Restaurant</title>
       </Head>
-      <Wrapper containNav={false}>
+      <Wrapper containNav={true}>
         <Container fluid className={classes.hero}>
           <Overlay
             gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"

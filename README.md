@@ -1,6 +1,6 @@
 # Meal mart food delivery application
 
-[Online Demo](https://kelvink96ltd.github.io/flick-city/ "Online Demo")
+[Online Demo](https://main--meal-mart.netlify.app/ "Online Demo")
 
 ### About:
 This is a web application built using Next Js, template - Typescript.
@@ -23,7 +23,7 @@ This is a web application built using Next Js, template - Typescript.
 - react-icons v4- https://react-icons.github.io/react-icons/
 
 **Dev dependencies**
-- eslint v8.0.1 - https://eslint.org/docs/latest/user-guide/getting-started
+- eslint v8 - https://eslint.org/docs/latest/user-guide/getting-started
 
 ### Screenshot
 ![image](https://user-images.githubusercontent.com/26582923/224567129-9ac0ef33-71f3-43ba-b519-34227977d0d9.png)
