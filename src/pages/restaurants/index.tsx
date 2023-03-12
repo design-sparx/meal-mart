@@ -32,6 +32,7 @@ import {scrollToView} from "@/utils/scrollToView";
 import {Carousel} from "@mantine/carousel";
 import {useMediaQuery, useToggle} from "@mantine/hooks";
 import {showNotification} from "@mantine/notifications";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {},
@@ -148,29 +149,50 @@ export default function Home() {
   ));
 
   return (
-    <Wrapper containNav={true}>
-      <Box className={classes.hero}>
-        <Overlay
-          gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
-          opacity={1}
-          zIndex={0}
-        />
-        <Container fluid className={classes.heroContainer}>
-          <Flex
-            align={mediumScreen ? 'center' : 'flex-end'}
-            justify="space-between"
-            sx={{width: '100%'}}
-            mb="md"
-            direction={mediumScreen ? 'column' : 'row'}
-            gap={mediumScreen ? 'md' : 0}>
-            <Stack>
-              <Title className={classes.heroTitle}>Pinocchio&apos;s Servings</Title>
-              <Flex gap={mediumScreen ? 'sm' : 'xs'} align="center" justify={mediumScreen ? 'center' : 'flex-start'}>
-                <Text className={classes.heroText}>Cuisine: Mexican</Text>
-                <Text className={classes.heroText}>-</Text>
-                <Text className={classes.heroText}>Location: 8 spo zas St, 499</Text>
-                {!mediumScreen && <>
-									<Text className={classes.heroText}>-</Text>
+    <>
+      <Head>
+        <title>Meal Mart | Restaurant</title>
+      </Head>
+      <Wrapper containNav={true}>
+        <Box className={classes.hero}>
+          <Overlay
+            gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
+            opacity={1}
+            zIndex={0}
+          />
+          <Container fluid className={classes.heroContainer}>
+            <Flex
+              align={mediumScreen ? 'center' : 'flex-end'}
+              justify="space-between"
+              sx={{width: '100%'}}
+              mb="md"
+              direction={mediumScreen ? 'column' : 'row'}
+              gap={mediumScreen ? 'md' : 0}>
+              <Stack>
+                <Title className={classes.heroTitle}>Pinocchio&apos;s Servings</Title>
+                <Flex gap={mediumScreen ? 'sm' : 'xs'} align="center" justify={mediumScreen ? 'center' : 'flex-start'}>
+                  <Text className={classes.heroText}>Cuisine: Mexican</Text>
+                  <Text className={classes.heroText}>-</Text>
+                  <Text className={classes.heroText}>Location: 8 spo zas St, 499</Text>
+                  {!mediumScreen && <>
+										<Text className={classes.heroText}>-</Text>
+										<Button
+											className={classes.control}
+											leftIcon={<MdLocationPin size={14}/>}
+											variant="white"
+											onClick={() => {
+                        showNotification({
+                          title: `Getting directions`,
+                          message: 'Hey there, you are doing great! 🤥',
+                        });
+                      }}>
+											Get directions
+										</Button>
+									</>}
+                </Flex>
+              </Stack>
+              <Flex gap={mediumScreen ? 'sm' : 'md'} wrap="wrap" justify={mediumScreen ? 'center' : 'flex-start'}>
+                {mediumScreen &&
 									<Button
 										className={classes.control}
 										leftIcon={<MdLocationPin size={14}/>}
@@ -183,127 +205,111 @@ export default function Home() {
                     }}>
 										Get directions
 									</Button>
-								</>}
-              </Flex>
-            </Stack>
-            <Flex gap={mediumScreen ? 'sm' : 'md'} wrap="wrap" justify={mediumScreen ? 'center' : 'flex-start'}>
-              {mediumScreen &&
-								<Button
-									className={classes.control}
-									leftIcon={<MdLocationPin size={14}/>}
-									variant="white"
-									onClick={() => {
+                }
+                <Button
+                  leftIcon={<MdOutlinePhotoSizeSelectActual/>}
+                  className={classes.control}
+                  variant="white"
+                  onClick={handleOpenGallery}>
+                  view photos
+                </Button>
+                <Button
+                  leftIcon={value ? <MdFavorite/> : <MdOutlineFavoriteBorder/>}
+                  className={classes.control}
+                  variant="white"
+                  onClick={() => {
+                    toggle();
                     showNotification({
-                      title: `Getting directions`,
+                      title: `${value ? 'Removed from favorites' : 'Added to favorites'}`,
                       message: 'Hey there, you are doing great! 🤥',
                     });
-                  }}>
-									Get directions
-								</Button>
-              }
-              <Button
-                leftIcon={<MdOutlinePhotoSizeSelectActual/>}
-                className={classes.control}
-                variant="white"
-                onClick={handleOpenGallery}>
-                view photos
-              </Button>
-              <Button
-                leftIcon={value ? <MdFavorite/> : <MdOutlineFavoriteBorder/>}
-                className={classes.control}
-                variant="white"
-                onClick={() => {
-                  toggle();
-                  showNotification({
-                    title: `${value ? 'Removed from favorites' : 'Added to favorites'}`,
-                    message: 'Hey there, you are doing great! 🤥',
-                  });
-                }
-                }>
-                {value ? 'Remove from favorites' : 'Add to favorites'}
-              </Button>
+                  }
+                  }>
+                  {value ? 'Remove from favorites' : 'Add to favorites'}
+                </Button>
+              </Flex>
             </Flex>
-          </Flex>
-          <Flex gap="sm" align="center">
-            <Badge size="xl" radius="sm" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
-            <Text className={classes.heroText}>310 reviews</Text>
-          </Flex>
+            <Flex gap="sm" align="center">
+              <Badge size="xl" radius="sm" leftSection={<MdOutlineStar size={14}/>}>9.3</Badge>
+              <Text className={classes.heroText}>310 reviews</Text>
+            </Flex>
+          </Container>
+        </Box>
+        <Flex gap={mediumScreen ? 'xs' : 'sm'} className={classes.stickyTab} sx={{width: '100%', overflowY: 'auto'}}>
+          <Button variant="subtle" color="gray" onClick={() => scrollToView(starterRef)}>Starters</Button>
+          <Button variant="subtle" color="gray" onClick={() => scrollToView(mainRef)}>Main Course</Button>
+          <Button variant="subtle" color="gray" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
+          <Button variant="subtle" color="gray" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
+          <Divider orientation="vertical"/>
+          <Button
+            variant="subtle"
+            color="gray"
+            leftIcon={<MdOutlineForum size={14}/>}
+            onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
+          {mediumScreen &&
+						<Button
+							variant="subtle"
+							color="gray"
+							leftIcon={<MdOutlineListAlt size={14}/>}
+							onClick={() => scrollToView(ordersRef)}>Order summary</Button>
+          }
+        </Flex>
+        <Box sx={{overflow: 'hidden'}}>
+          <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl" gutterLg={48}>
+            <Grid.Col md={12} lg={8}>
+              <Box>
+                <div ref={starterRef} style={{paddingTop: 48, paddingBottom: 48}}>
+                  <RestaurantMenu title="Starters"/>
+                </div>
+                <div ref={mainRef} style={{paddingTop: 48, paddingBottom: 48}}>
+                  <RestaurantMenu title="Main courses"/>
+                </div>
+                <div ref={dessertRef} style={{paddingTop: 48, paddingBottom: 48}}>
+                  <RestaurantMenu title="Desserts"/>
+                </div>
+                <div ref={drinksRef} style={{paddingTop: 48, paddingBottom: 48}}>
+                  <RestaurantMenu title="Drinks"/>
+                </div>
+              </Box>
+            </Grid.Col>
+            <Grid.Col md={12} lg={4}>
+              <Box component="div" className={classes.ordersWrapper} ref={ordersRef}>
+                <OrderSummary/>
+              </Box>
+            </Grid.Col>
+          </Grid>
+        </Box>
+        <Container pt={80} pb={120}>
+          <div ref={reviewsRef}>
+            <RestaurantReviews/>
+          </div>
         </Container>
-      </Box>
-      <Flex gap={mediumScreen ? 'xs' : 'sm'} className={classes.stickyTab} sx={{width: '100%', overflowY: 'auto'}}>
-        <Button variant="subtle" color="gray" onClick={() => scrollToView(starterRef)}>Starters</Button>
-        <Button variant="subtle" color="gray" onClick={() => scrollToView(mainRef)}>Main Course</Button>
-        <Button variant="subtle" color="gray" onClick={() => scrollToView(dessertRef)}>Dessert</Button>
-        <Button variant="subtle" color="gray" onClick={() => scrollToView(drinksRef)}>Drinks</Button>
-        <Divider orientation="vertical"/>
-        <Button
-          variant="subtle"
-          color="gray"
-          leftIcon={<MdOutlineForum size={14}/>}
-          onClick={() => scrollToView(reviewsRef)}>Reviews</Button>
-        {mediumScreen &&
-					<Button
-						variant="subtle"
-						color="gray"
-						leftIcon={<MdOutlineListAlt size={14}/>}
-						onClick={() => scrollToView(ordersRef)}>Order summary</Button>
-        }
-      </Flex>
-      <Box sx={{overflow: 'hidden'}}>
-        <Grid className={classes.menuWrapper} gutterXs="md" gutterMd="xl" gutterLg={48}>
-          <Grid.Col md={12} lg={8}>
-            <Box>
-              <div ref={starterRef} style={{paddingTop: 48, paddingBottom: 48}}>
-                <RestaurantMenu title="Starters"/>
-              </div>
-              <div ref={mainRef} style={{paddingTop: 48, paddingBottom: 48}}>
-                <RestaurantMenu title="Main courses"/>
-              </div>
-              <div ref={dessertRef} style={{paddingTop: 48, paddingBottom: 48}}>
-                <RestaurantMenu title="Desserts"/>
-              </div>
-              <div ref={drinksRef} style={{paddingTop: 48, paddingBottom: 48}}>
-                <RestaurantMenu title="Drinks"/>
-              </div>
-            </Box>
-          </Grid.Col>
-          <Grid.Col md={12} lg={4}>
-            <Box component="div" className={classes.ordersWrapper} ref={ordersRef}>
-              <OrderSummary/>
-            </Box>
-          </Grid.Col>
-        </Grid>
-      </Box>
-      <Container pt={80} pb={120}>
-        <div ref={reviewsRef}>
-          <RestaurantReviews/>
-        </div>
-      </Container>
-      <Modal
-        opened={openGallery}
-        onClose={handleCloseGallery}
-        centered
-        title="Restaurant gallery album"
-        size="xl"
-      >
-        <Carousel
-          mx="auto"
-          withIndicators
-          loop
-          styles={{
-            indicator: {
-              width: 12,
-              height: 4,
-              transition: 'width 250ms ease',
+        <Modal
+          opened={openGallery}
+          onClose={handleCloseGallery}
+          centered
+          title="Restaurant gallery album"
+          size="xl"
+        >
+          <Carousel
+            mx="auto"
+            withIndicators
+            loop
+            styles={{
+              indicator: {
+                width: 12,
+                height: 4,
+                transition: 'width 250ms ease',
 
-              '&[data-active]': {
-                width: 40,
+                '&[data-active]': {
+                  width: 40,
+                },
               },
-            },
-          }}>
-          {slides}
-        </Carousel>
-      </Modal>
-    </Wrapper>
+            }}>
+            {slides}
+          </Carousel>
+        </Modal>
+      </Wrapper>
+    </>
   )
 }

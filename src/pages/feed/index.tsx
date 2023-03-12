@@ -36,6 +36,7 @@ import FoodList from "@/components/FoodList";
 import CatagoriesData from "@/data/Categories.json";
 import {useMediaQuery} from "@mantine/hooks";
 import {showNotification} from "@mantine/notifications";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   search: {
@@ -78,6 +79,10 @@ function Index(): JSX.Element {
   }, [largeScreen]);
 
   return (
+    <>
+      <Head>
+        <title>Meal Mart | Feed</title>
+      </Head>
     <Wrapper>
       <Box className={classes.search}>
         <Container fluid>
@@ -271,6 +276,7 @@ function Index(): JSX.Element {
         </Container>
       </Box>
     </Wrapper>
+      </>
   );
 }
 

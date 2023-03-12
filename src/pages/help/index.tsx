@@ -19,6 +19,7 @@ import React from "react";
 import {MdOutlineBook, MdOutlineSearch} from "react-icons/md";
 import FaqsData from "@/data/Faqs.json";
 import {useMediaQuery} from "@mantine/hooks";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -120,83 +121,89 @@ export default function Help() {
   const smallScreen = useMediaQuery('(max-width: 426px)');
 
   return (
-    <Wrapper containNav={true}>
-      <Stack>
-        <Box className={classes.hero}>
-          <Overlay
-            gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
-            opacity={1}
-            zIndex={0}
-          />
-          <Container fluid className={classes.heroContainer}>
-            <Center sx={{height: '100%'}}>
-              <Stack align="center">
-                <Title className={classes.heroTitle}>Help and support</Title>
-                <Text className={classes.heroText} mb="xl">Search questions or useful articles</Text>
-                <TextInput
-                  className={classes.control}
-                  icon={<MdOutlineSearch size={24}/>}
-                  radius="sm"
-                  size="lg"
-                  rightSection={<Button size="md" variant="white">Search</Button>}
-                  placeholder="what are you looking for?"
-                  rightSectionWidth={110}/>
-              </Stack>
-            </Center>
-          </Container>
-        </Box>
-        <Container pt={80} pb={120}>
-          <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Select topic</Title>
-          <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-          <SimpleGrid
-            cols={4}
-            spacing="xl"
-            breakpoints={[
-              {maxWidth: 'lg', cols: 3, spacing: 'lg'},
-              {maxWidth: 'md', cols: 2, spacing: 'md'},
-              {maxWidth: 'sm', cols: 1, spacing: 'sm'},
-              {maxWidth: 'xs', cols: 1, spacing: 'sm'},
-            ]}>
-            {FaqsData.categories.map((_, idx) => (
-              <UnstyledButton
-                style={{backgroundImage: `url(${_.image})`}}
-                className={classes.categoryCard}
-                key={`faq-item-${_.label}-${idx}`}
-              >
-                <Overlay color="#000" opacity={0.6} zIndex={1}/>
-                <Text size="xl" align="center" weight={700} className={classes.categoryLabel}>
-                  {_.label}
-                </Text>
-              </UnstyledButton>
-            ))}
-          </SimpleGrid>
-        </Container>
-        <Box sx={{backgroundColor: theme.colors.gray[0]}}>
+    <>
+      <Head>
+        <title>Meal Mart | Help</title>
+      </Head>
+      <Wrapper containNav={true}>
+        <Stack>
+          <Box className={classes.hero}>
+            <Overlay
+              gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
+              opacity={1}
+              zIndex={0}
+            />
+            <Container fluid className={classes.heroContainer}>
+              <Center sx={{height: '100%'}}>
+                <Stack align="center">
+                  <Title className={classes.heroTitle}>Help and support</Title>
+                  <Text className={classes.heroText} mb="xl">Search questions or useful articles</Text>
+                  <TextInput
+                    className={classes.control}
+                    icon={<MdOutlineSearch size={24}/>}
+                    radius="sm"
+                    size="lg"
+                    rightSection={<Button size="md" variant="white">Search</Button>}
+                    placeholder="what are you looking for?"
+                    rightSectionWidth={110}/>
+                </Stack>
+              </Center>
+            </Container>
+          </Box>
           <Container pt={80} pb={120}>
-            <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Relevant links</Title>
+            <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Select topic</Title>
             <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur adipiscing
               elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
             <SimpleGrid
-              cols={3}
-              spacing="lg"
+              cols={4}
+              spacing="xl"
               breakpoints={[
+                {maxWidth: 'lg', cols: 3, spacing: 'lg'},
                 {maxWidth: 'md', cols: 2, spacing: 'md'},
                 {maxWidth: 'sm', cols: 1, spacing: 'sm'},
                 {maxWidth: 'xs', cols: 1, spacing: 'sm'},
               ]}>
-              {Array.from({length: 10}).map((_, idx) => (
-                <UnstyledButton key={`help-article-${idx}`} className={classes.linkControl}>
-                  <Flex gap="md">
-                    <ThemeIcon variant="default" size="md"><MdOutlineBook/></ThemeIcon>
-                    <Text>A pellentesque sit amet porttitor {idx}</Text>
-                  </Flex>
+              {FaqsData.categories.map((_, idx) => (
+                <UnstyledButton
+                  style={{backgroundImage: `url(${_.image})`}}
+                  className={classes.categoryCard}
+                  key={`faq-item-${_.label}-${idx}`}
+                >
+                  <Overlay color="#000" opacity={0.6} zIndex={1}/>
+                  <Text size="xl" align="center" weight={700} className={classes.categoryLabel}>
+                    {_.label}
+                  </Text>
                 </UnstyledButton>
               ))}
             </SimpleGrid>
           </Container>
-        </Box>
-      </Stack>
-    </Wrapper>
+          <Box sx={{backgroundColor: theme.colors.gray[0]}}>
+            <Container pt={80} pb={120}>
+              <Title align="center" size={smallScreen ? 28 : 48} mb="xl">Relevant links</Title>
+              <Text className={classes.subtitle} align="center" mb="xl">Lorem ipsum dolor sit amet, consectetur
+                adipiscing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+              <SimpleGrid
+                cols={3}
+                spacing="lg"
+                breakpoints={[
+                  {maxWidth: 'md', cols: 2, spacing: 'md'},
+                  {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                  {maxWidth: 'xs', cols: 1, spacing: 'sm'},
+                ]}>
+                {Array.from({length: 10}).map((_, idx) => (
+                  <UnstyledButton key={`help-article-${idx}`} className={classes.linkControl}>
+                    <Flex gap="md">
+                      <ThemeIcon variant="default" size="md"><MdOutlineBook/></ThemeIcon>
+                      <Text>A pellentesque sit amet porttitor {idx}</Text>
+                    </Flex>
+                  </UnstyledButton>
+                ))}
+              </SimpleGrid>
+            </Container>
+          </Box>
+        </Stack>
+      </Wrapper>
+    </>
   )
 }

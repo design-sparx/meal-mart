@@ -1,38 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Meal mart food delivery application
 
-## Getting Started
+[Online Demo](https://kelvink96ltd.github.io/flick-city/ "Online Demo")
 
-First, run the development server:
+### About:
+This is a web application built using Next Js, template - Typescript.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+#### Available Pages
+1. Home
+2. Feed
+3. Restaurant details
+4. Create restaurant
+5. Submit order
+6. Become a rider
+7. Write review
+8. Help
+9. Contact
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Tech Stack:
+- embla-carousel-react v7 - https://www.embla-carousel.com/get-started/
+- mantine v5 - https://mantine.dev/pages/getting-started/
+- nextjs v13 - https://reactjs.org/docs/getting-started.html
+- react-icons v4- https://react-icons.github.io/react-icons/
 
-You can start editing the page by modifying `pages/submit.tsx`. The page auto-updates as you edit the file.
+**Dev dependencies**
+- eslint v8.0.1 - https://eslint.org/docs/latest/user-guide/getting-started
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Screenshot
+![image](https://user-images.githubusercontent.com/26582923/196703975-366a8a16-f0dc-4dd3-8ea3-26abd8f05688.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Software
+Before proceeding, please ensure you have the following software installed on your computer.
+- Node
+- Yarn (optional but recommended)
+- Git command line tools
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Useful links
+- Download Git cli -
+    - Windows: https://git-scm.com/download/windows
+    - Mac: https://git-scm.com/download/mac
+- Download Node - https://nodejs.org/en/
+- Download Yarn cli - https://yarnpkg.com/lang/en/docs/install/
+- Download VSCode - https://code.visualstudio.com/
 
-## Learn More
+### Getting started
+Please fork a copy of this repository. Forking a repository allows you to freely experiment with changes without affecting the original project. Alternatively download or clone the master branch.
 
-To learn more about Next.js, take a look at the following resources:
+##### Download & Install Dependencies on your machine
+Clone the repo to your machine
+`git clone <CloneURL>`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+##### Launch the frontend
+1. Open a new terminal window and navigate in your root folder
+   `cd <../root>`
+   `yarn install OR npm install`
+2. Run the start script
+   `yarn run start OR npm run start`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Your app should be running on: http://localhost:3000
 
-## Deploy on Vercel
+### Versions
+v1.0
+- Default project implementation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Authors
+1. Kelvin Kiptum Kiprop - https://github.com/kelvink96
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/kelvink96ltd/flick-city/blob/master/LICENSE.md) file for details

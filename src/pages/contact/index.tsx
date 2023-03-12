@@ -22,6 +22,7 @@ import React, {useState} from "react";
 import {MdOutlineHelpCenter, MdOutlineLocationOn, MdOutlineSend} from "react-icons/md";
 import {hasLength, isEmail, isNotEmpty, useForm} from "@mantine/form";
 import {showNotification} from "@mantine/notifications";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -104,91 +105,97 @@ export default function Contact() {
 
 
   return (
-    <Wrapper containNav={true}>
-      <Box className={classes.wrapper}>
-        <Box className={classes.hero}>
-          <Overlay
-            gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
-            opacity={1}
-            zIndex={0}
-          />
-          <Container className={classes.container}>
-            <Title className={classes.title}>Contact Food Delivery.</Title>
-            <Text className={classes.description} size="xl" mt="xl">The best of restaurant experience.</Text>
-          </Container>
-        </Box>
-        <Box sx={{backgroundColor: theme.colors.gray[0]}}>
-          <Container pt={80} pb={120}>
-            <Grid gutterXs="md" gutterMd="xl">
-              <Grid.Col md={8}>
-                <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
-                  <LoadingOverlay visible={loading}/>
-                  <Box component="form" onSubmit={form.onSubmit(() => {
-                    console.log('')
-                  })}>
-                    <Title order={3} mb="md">Get in Touch</Title>
-                    <Group grow>
-                      <TextInput label="Name" placeholder="Your name" withAsterisk {...form.getInputProps('name')} />
+    <>
+      <Head>
+        <title>Meal Mart | Contact</title>
+      </Head>
+      <Wrapper containNav={true}>
+        <Box className={classes.wrapper}>
+          <Box className={classes.hero}>
+            <Overlay
+              gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
+              opacity={1}
+              zIndex={0}
+            />
+            <Container className={classes.container}>
+              <Title className={classes.title}>Contact Food Delivery.</Title>
+              <Text className={classes.description} size="xl" mt="xl">The best of restaurant experience.</Text>
+            </Container>
+          </Box>
+          <Box sx={{backgroundColor: theme.colors.gray[0]}}>
+            <Container pt={80} pb={120}>
+              <Grid gutterXs="md" gutterMd="xl">
+                <Grid.Col md={8}>
+                  <Paper p="md" shadow="sm" sx={{position: 'relative'}}>
+                    <LoadingOverlay visible={loading}/>
+                    <Box component="form" onSubmit={form.onSubmit(() => {
+                      console.log('')
+                    })}>
+                      <Title order={3} mb="md">Get in Touch</Title>
+                      <Group grow>
+                        <TextInput label="Name" placeholder="Your name" withAsterisk {...form.getInputProps('name')} />
+                        <TextInput
+                          label="Email"
+                          placeholder="Your email"
+                          withAsterisk
+                          {...form.getInputProps('email')}
+                        />
+                      </Group>
                       <TextInput
-                        label="Email"
-                        placeholder="Your email"
+                        label="Subject"
+                        placeholder="Your subject"
                         withAsterisk
-                        {...form.getInputProps('email')}
+                        mt="md"
+                        {...form.getInputProps('subject')}
                       />
-                    </Group>
-                    <TextInput
-                      label="Subject"
-                      placeholder="Your subject"
-                      withAsterisk
-                      mt="md"
-                      {...form.getInputProps('subject')}
-                    />
-                    <Textarea
-                      label="Message"
-                      placeholder="Your message"
-                      withAsterisk
-                      mt="md"
-                      {...form.getInputProps('message')}
-                    />
-                    <Group position="right" mt="md">
-                      <Button type="submit" leftIcon={<MdOutlineSend size={14}/>} onClick={handleSubmit}>Submit</Button>
-                    </Group>
-                  </Box>
-                </Paper>
-              </Grid.Col>
-              <Grid.Col md={4}>
-                <Stack>
-                  <Paper p="md" shadow="sm">
-                    <Stack spacing="xs">
-                      <Flex gap="sm">
-                        <ThemeIcon variant="outline">
-                          <MdOutlineHelpCenter/>
-                        </ThemeIcon>
-                        <Text size="lg" weight={500}>Help Center</Text>
-                      </Flex>
-                      <Anchor<'a'> size="sm">+254 706 094 433</Anchor>
-                      <Anchor<'a'> size="sm">help@fooddelivery.com</Anchor>
-                      <Text size="sm">Open on: Monday - Friday (9am - 6pm)</Text>
-                    </Stack>
+                      <Textarea
+                        label="Message"
+                        placeholder="Your message"
+                        withAsterisk
+                        mt="md"
+                        {...form.getInputProps('message')}
+                      />
+                      <Group position="right" mt="md">
+                        <Button type="submit" leftIcon={<MdOutlineSend size={14}/>}
+                                onClick={handleSubmit}>Submit</Button>
+                      </Group>
+                    </Box>
                   </Paper>
-                  <Paper p="md" shadow="sm">
-                    <Stack spacing="xs">
-                      <Flex gap="sm">
-                        <ThemeIcon variant="outline">
-                          <MdOutlineLocationOn/>
-                        </ThemeIcon>
-                        <Text size="lg" weight={500}>Address</Text>
-                      </Flex>
-                      <Text size="sm">10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
-                      <Text size="sm">Open on: Monday - Saturday (9am - 6pm)</Text>
-                    </Stack>
-                  </Paper>
-                </Stack>
-              </Grid.Col>
-            </Grid>
-          </Container>
+                </Grid.Col>
+                <Grid.Col md={4}>
+                  <Stack>
+                    <Paper p="md" shadow="sm">
+                      <Stack spacing="xs">
+                        <Flex gap="sm">
+                          <ThemeIcon variant="outline">
+                            <MdOutlineHelpCenter/>
+                          </ThemeIcon>
+                          <Text size="lg" weight={500}>Help Center</Text>
+                        </Flex>
+                        <Anchor<'a'> size="sm">+254 706 094 433</Anchor>
+                        <Anchor<'a'> size="sm">help@fooddelivery.com</Anchor>
+                        <Text size="sm">Open on: Monday - Friday (9am - 6pm)</Text>
+                      </Stack>
+                    </Paper>
+                    <Paper p="md" shadow="sm">
+                      <Stack spacing="xs">
+                        <Flex gap="sm">
+                          <ThemeIcon variant="outline">
+                            <MdOutlineLocationOn/>
+                          </ThemeIcon>
+                          <Text size="lg" weight={500}>Address</Text>
+                        </Flex>
+                        <Text size="sm">10th Avenue, Forest Road, Nairobi - 30100 - KE</Text>
+                        <Text size="sm">Open on: Monday - Saturday (9am - 6pm)</Text>
+                      </Stack>
+                    </Paper>
+                  </Stack>
+                </Grid.Col>
+              </Grid>
+            </Container>
+          </Box>
         </Box>
-      </Box>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }

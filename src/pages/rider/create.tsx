@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Wrapper from "@/layout";
 import {Box, Button, Center, Container, createStyles, Flex, Overlay, Stack, Text, Title} from "@mantine/core";
 import Faqs from "@/components/Faqs";
 import RiderFeatures from "@/components/RiderFeatures";
 import RiderForm from "@/components/RiderForm";
 import {useMediaQuery} from "@mantine/hooks";
-import {showNotification} from "@mantine/notifications";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -59,49 +59,42 @@ const data = [
 export default function Create() {
   const {classes, theme} = useStyles();
   const smallScreen = useMediaQuery('(max-width: 426px)');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      showNotification({
-        title: 'Form submitted',
-        message: 'Hey there, you are doing great! 🤥',
-      });
-    }, 3000);
-  }
 
   return (
-    <Wrapper containNav={true}>
-      <Box className={classes.hero}>
-        <Overlay
-          gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
-          opacity={1}
-          zIndex={0}
-        />
-        <Container fluid className={classes.heroContainer}>
-          <Center sx={{height: '100%'}}>
-            <Stack align="center">
-              <Title className={classes.heroTitle}>Deliver with Meal Mart</Title>
-              <Text className={classes.heroText} mb="md">Flexible work, competitive fees</Text>
-              <Flex gap="md" wrap="wrap" sx={{justifyContent: smallScreen ? 'center' : 'flex-start'}}>
-                <Button size="md">Apply now to deliver</Button>
-                <Button size="md" variant="white">Already have an account? Sign in</Button>
-              </Flex>
-            </Stack>
-          </Center>
+    <>
+      <Head>
+        <title>Meal Mart | Become a Rider</title>
+      </Head>
+      <Wrapper containNav={true}>
+        <Box className={classes.hero}>
+          <Overlay
+            gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, .65) 40%)"
+            opacity={1}
+            zIndex={0}
+          />
+          <Container fluid className={classes.heroContainer}>
+            <Center sx={{height: '100%'}}>
+              <Stack align="center">
+                <Title className={classes.heroTitle}>Deliver with Meal Mart</Title>
+                <Text className={classes.heroText} mb="md">Flexible work, competitive fees</Text>
+                <Flex gap="md" wrap="wrap" sx={{justifyContent: smallScreen ? 'center' : 'flex-start'}}>
+                  <Button size="md">Apply now to deliver</Button>
+                  <Button size="md" variant="white">Already have an account? Sign in</Button>
+                </Flex>
+              </Stack>
+            </Center>
+          </Container>
+        </Box>
+        <Container pt={80} pb={120}>
+          <RiderFeatures/>
         </Container>
-      </Box>
-      <Container pt={80} pb={120}>
-        <RiderFeatures/>
-      </Container>
-      <Box pt={80} pb={120} sx={{backgroundColor: theme.colors.gray[0]}}>
-        <RiderForm/>
-      </Box>
-      <Container pt={80}>
-        <Faqs/>
-      </Container>
-    </Wrapper>
+        <Box pt={80} pb={120} sx={{backgroundColor: theme.colors.gray[0]}}>
+          <RiderForm/>
+        </Box>
+        <Container pt={80}>
+          <Faqs/>
+        </Container>
+      </Wrapper>
+    </>
   );
 }
