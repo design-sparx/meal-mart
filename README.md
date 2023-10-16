@@ -1,4 +1,4 @@
-![mockup](https://github.com/design-sparx/meal-mart/assets/26582923/936dd7f9-3282-4f64-ab50-58a808128282)[Uploading mockup.jpg…]()
+![mockup](https://github.com/design-sparx/meal-mart/assets/26582923/936dd7f9-3282-4f64-ab50-58a808128282)
 
 # Meal mart food delivery application
 
